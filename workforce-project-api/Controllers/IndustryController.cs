@@ -10,5 +10,6 @@ namespace workforce_project_api.Controllers
 {
     public class IndustryController : ApiController
     {
+        private IndustriesCrud ic = new IndustriesCrud();
     }
 }

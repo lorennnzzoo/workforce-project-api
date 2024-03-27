@@ -10,5 +10,6 @@ namespace workforce_project_api.Controllers
 {
     public class POController : ApiController
     {
+        private PoCrud pc = new PoCrud();
     }
 }
