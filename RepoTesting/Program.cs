@@ -85,27 +85,29 @@ namespace RepoTesting
             List<Purchase_Categories> pcat = pc.GetPurchaseCategories();
 
 
-            PO_Details edpodd = new PO_Details
-            {
-                id=3,
-                INDUSTRY_ID = 1,
-                PO_DATE = Convert.ToDateTime("2024-02-14"),
-                PO_NUMBER = "33",
-                PURCHASE_CATEGORYID = 1,
-                WORK_SCOPE = "helksjdbflsadbvfogadfjgsaiugfasdjg",
-                DEPT_PRIMARY_CONTACTNAME = "ramesh",
-                DEPT_PRIMARY_CONTACTNUMBER = "+912345678890",
-                DEPT_PRIMARY_EMAILID = "ramesh@gmail.com",
-                PURCHASE_CONTACTNAME = "bhanu",
-                PURCHASE_CONTACTNUMBER = "+911234512345",
-                PURCHASE_EMAILID = "bhanu@gmail.com",
-                PAYMENT_CONTACTNAME = "dharma",
-                PAYMENT_CONTACTNUMBER = "+911234512345",
-                PAYMENT_EMAILID = "dharma@gmail.com",
-                PAYMENT_DATE = Convert.ToDateTime("2024-02-14")
-            };
+            //PO_Details edpodd = new PO_Details
+            //{
+            //    id=3,
+            //    INDUSTRY_ID = 1,
+            //    PO_DATE = Convert.ToDateTime("2024-02-14"),
+            //    PO_NUMBER = "33",
+            //    PURCHASE_CATEGORYID = 1,
+            //    WORK_SCOPE = "helksjdbflsadbvfogadfjgsaiugfasdjgh",
+            //    DEPT_PRIMARY_CONTACTNAME = "ramesh",
+            //    DEPT_PRIMARY_CONTACTNUMBER = "+912345678890",
+            //    DEPT_PRIMARY_EMAILID = "ramesh@gmail.com",
+            //    PURCHASE_CONTACTNAME = "bhanu",
+            //    PURCHASE_CONTACTNUMBER = "+911234512345",
+            //    PURCHASE_EMAILID = "bhanu@gmail.com",
+            //    PAYMENT_CONTACTNAME = "dharma",
+            //    PAYMENT_CONTACTNUMBER = "+911234512345",
+            //    PAYMENT_EMAILID = "dharma@gmail.com",
+            //    PAYMENT_DATE = Convert.ToDateTime("2024-02-14")
+            //};
 
-            string succedpodd = pc.EditPoDetails(edpodd);
+            //string succedpodd = pc.EditPoDetails(edpodd);
+
+            string sucdel = pc.DeletePoById(3);
         }
     }
 }
