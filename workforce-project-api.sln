@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{2F131784-F406-4018-B7E1-CB605BABC400}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoTesting", "RepoTesting\RepoTesting.csproj", "{D950A896-ADBC-40FB-8CE5-6BFB1F61F7F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2F131784-F406-4018-B7E1-CB605BABC400}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F131784-F406-4018-B7E1-CB605BABC400}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F131784-F406-4018-B7E1-CB605BABC400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D950A896-ADBC-40FB-8CE5-6BFB1F61F7F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D950A896-ADBC-40FB-8CE5-6BFB1F61F7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D950A896-ADBC-40FB-8CE5-6BFB1F61F7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D950A896-ADBC-40FB-8CE5-6BFB1F61F7F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

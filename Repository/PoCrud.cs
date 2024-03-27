@@ -90,6 +90,7 @@ namespace Repository
             var Po = wfe.PO_Details.FirstOrDefault(e => e.id == UpdatedPO.id);
             if(Po!=null)
             {
+                Po.INDUSTRY_ID = UpdatedPO.INDUSTRY_ID;            
                 Po.PO_DATE = UpdatedPO.PO_DATE;
                 Po.PO_NUMBER = UpdatedPO.PO_NUMBER;
                 Po.PURCHASE_CATEGORYID = UpdatedPO.PURCHASE_CATEGORYID;
@@ -103,6 +104,7 @@ namespace Repository
                 Po.PAYMENT_CONTACTNAME = UpdatedPO.PAYMENT_CONTACTNAME;
                 Po.PAYMENT_CONTACTNUMBER = UpdatedPO.PAYMENT_CONTACTNUMBER;
                 Po.PAYMENT_EMAILID = UpdatedPO.PAYMENT_EMAILID;
+                Po.PAYMENT_DATE = UpdatedPO.PAYMENT_DATE;
 
                 int success=wfe.SaveChanges();
                 if(success>0)
