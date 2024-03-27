@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "workforce-project-api", "workforce-project-api\workforce-project-api.csproj", "{BA6C375A-B294-42E0-8CC3-4F19EDC786D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{0305E1E0-036B-4121-B2A8-CAE2193D6F3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{2F131784-F406-4018-B7E1-CB605BABC400}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{BA6C375A-B294-42E0-8CC3-4F19EDC786D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA6C375A-B294-42E0-8CC3-4F19EDC786D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA6C375A-B294-42E0-8CC3-4F19EDC786D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0305E1E0-036B-4121-B2A8-CAE2193D6F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0305E1E0-036B-4121-B2A8-CAE2193D6F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0305E1E0-036B-4121-B2A8-CAE2193D6F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0305E1E0-036B-4121-B2A8-CAE2193D6F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F131784-F406-4018-B7E1-CB605BABC400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F131784-F406-4018-B7E1-CB605BABC400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F131784-F406-4018-B7E1-CB605BABC400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F131784-F406-4018-B7E1-CB605BABC400}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
