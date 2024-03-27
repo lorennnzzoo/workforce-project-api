@@ -11,7 +11,7 @@ namespace Repository
     {
         private workforce_Entities wfe = new workforce_Entities();
 
-        public List<Industry_Types> getTypes()
+        public List<Industry_Types> getIndustryTypes()
         {
             var IndustryTypes = wfe.Industry_Types.ToList();
             if(IndustryTypes != null)
