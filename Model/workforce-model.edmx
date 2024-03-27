@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="workforce_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Industry_Details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Industry_FullName" Type="nvarchar(max)" />
+          <Property Name="Industry_ShortName" Type="nvarchar(max)" />
+          <Property Name="Industry_Code" Type="nvarchar(max)" />
+          <Property Name="Industry_TypeID" Type="int" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="Email_ID" Type="nvarchar(max)" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="13" />
+        </EntityType>
+        <EntityType Name="Industry_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IndustryType" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PO_Details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="INDUSTRY_ID" Type="int" />
+          <Property Name="PO_DATE" Type="date" />
+          <Property Name="PO_NUMBER" Type="nvarchar(max)" />
+          <Property Name="PURCHASE_CATEGORYID" Type="int" />
+          <Property Name="WORK_SCOPE" Type="nvarchar(max)" />
+          <Property Name="DEPT_PRIMARY_CONTACTNAME" Type="nvarchar(max)" />
+          <Property Name="DEPT_PRIMARY_CONTACTNUMBER" Type="nvarchar" MaxLength="13" />
+          <Property Name="DEPT_PRIMARY_EMAILID" Type="nvarchar(max)" />
+          <Property Name="PURCHASE_CONTACTNAME" Type="nvarchar(max)" />
+          <Property Name="PURCHASE_CONTACTNUMBER" Type="nvarchar" MaxLength="13" />
+          <Property Name="PURCHASE_EMAILID" Type="nvarchar(max)" />
+          <Property Name="PAYMENT_CONTACTNAME" Type="nvarchar(max)" />
+          <Property Name="PAYMENT_CONTACTNUMBER" Type="nvarchar" MaxLength="13" />
+          <Property Name="PAYMENT_EMAILID" Type="nvarchar(max)" />
+          <Property Name="PAYMENT_DATE" Type="date" />
+        </EntityType>
+        <EntityType Name="Purchase_Categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="purchase_categorytype" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Industry___Indus__173876EA">
+          <End Role="Industry_Types" Type="Self.Industry_Types" Multiplicity="0..1" />
+          <End Role="Industry_Details" Type="Self.Industry_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Industry_Details">
+              <PropertyRef Name="Industry_TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__po_detail__INDUS__1CF15040">
+          <End Role="Industry_Details" Type="Self.Industry_Details" Multiplicity="0..1" />
+          <End Role="PO_Details" Type="Self.PO_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry_Details">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PO_Details">
+              <PropertyRef Name="INDUSTRY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__po_detail__PURCH__1DE57479">
+          <End Role="Purchase_Categories" Type="Self.Purchase_Categories" Multiplicity="0..1" />
+          <End Role="PO_Details" Type="Self.PO_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase_Categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PO_Details">
+              <PropertyRef Name="PURCHASE_CATEGORYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="workforce_projectModelStoreContainer">
+          <EntitySet Name="Industry_Details" EntityType="Self.Industry_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Industry_Types" EntityType="Self.Industry_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PO_Details" EntityType="Self.PO_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase_Categories" EntityType="Self.Purchase_Categories" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Industry___Indus__173876EA" Association="Self.FK__Industry___Indus__173876EA">
+            <End Role="Industry_Types" EntitySet="Industry_Types" />
+            <End Role="Industry_Details" EntitySet="Industry_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__po_detail__INDUS__1CF15040" Association="Self.FK__po_detail__INDUS__1CF15040">
+            <End Role="Industry_Details" EntitySet="Industry_Details" />
+            <End Role="PO_Details" EntitySet="PO_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__po_detail__PURCH__1DE57479" Association="Self.FK__po_detail__PURCH__1DE57479">
+            <End Role="Purchase_Categories" EntitySet="Purchase_Categories" />
+            <End Role="PO_Details" EntitySet="PO_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="workforce_projectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Industry_Details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Industry_FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Industry_ShortName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Industry_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Industry_TypeID" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Industry_Types" Relationship="Self.FK__Industry___Indus__173876EA" FromRole="Industry_Details" ToRole="Industry_Types" />
+          <NavigationProperty Name="PO_Details" Relationship="Self.FK__po_detail__INDUS__1CF15040" FromRole="Industry_Details" ToRole="PO_Details" />
+        </EntityType>
+        <EntityType Name="Industry_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Industry_Details" Relationship="Self.FK__Industry___Indus__173876EA" FromRole="Industry_Types" ToRole="Industry_Details" />
+        </EntityType>
+        <EntityType Name="PO_Details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="INDUSTRY_ID" Type="Int32" />
+          <Property Name="PO_DATE" Type="DateTime" Precision="0" />
+          <Property Name="PO_NUMBER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PURCHASE_CATEGORYID" Type="Int32" />
+          <Property Name="WORK_SCOPE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DEPT_PRIMARY_CONTACTNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DEPT_PRIMARY_CONTACTNUMBER" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="DEPT_PRIMARY_EMAILID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PURCHASE_CONTACTNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PURCHASE_CONTACTNUMBER" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="PURCHASE_EMAILID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PAYMENT_CONTACTNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PAYMENT_CONTACTNUMBER" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="PAYMENT_EMAILID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PAYMENT_DATE" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Industry_Details" Relationship="Self.FK__po_detail__INDUS__1CF15040" FromRole="PO_Details" ToRole="Industry_Details" />
+          <NavigationProperty Name="Purchase_Categories" Relationship="Self.FK__po_detail__PURCH__1DE57479" FromRole="PO_Details" ToRole="Purchase_Categories" />
+        </EntityType>
+        <EntityType Name="Purchase_Categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="purchase_categorytype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PO_Details" Relationship="Self.FK__po_detail__PURCH__1DE57479" FromRole="Purchase_Categories" ToRole="PO_Details" />
+        </EntityType>
+        <Association Name="FK__Industry___Indus__173876EA">
+          <End Role="Industry_Types" Type="Self.Industry_Types" Multiplicity="0..1" />
+          <End Role="Industry_Details" Type="Self.Industry_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Industry_Details">
+              <PropertyRef Name="Industry_TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__po_detail__INDUS__1CF15040">
+          <End Role="Industry_Details" Type="Self.Industry_Details" Multiplicity="0..1" />
+          <End Role="PO_Details" Type="Self.PO_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry_Details">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PO_Details">
+              <PropertyRef Name="INDUSTRY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__po_detail__PURCH__1DE57479">
+          <End Role="Purchase_Categories" Type="Self.Purchase_Categories" Multiplicity="0..1" />
+          <End Role="PO_Details" Type="Self.PO_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase_Categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PO_Details">
+              <PropertyRef Name="PURCHASE_CATEGORYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="workforce_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Industry_Details" EntityType="Self.Industry_Details" />
+          <EntitySet Name="Industry_Types" EntityType="Self.Industry_Types" />
+          <EntitySet Name="PO_Details" EntityType="Self.PO_Details" />
+          <EntitySet Name="Purchase_Categories" EntityType="Self.Purchase_Categories" />
+          <AssociationSet Name="FK__Industry___Indus__173876EA" Association="Self.FK__Industry___Indus__173876EA">
+            <End Role="Industry_Types" EntitySet="Industry_Types" />
+            <End Role="Industry_Details" EntitySet="Industry_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__po_detail__INDUS__1CF15040" Association="Self.FK__po_detail__INDUS__1CF15040">
+            <End Role="Industry_Details" EntitySet="Industry_Details" />
+            <End Role="PO_Details" EntitySet="PO_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__po_detail__PURCH__1DE57479" Association="Self.FK__po_detail__PURCH__1DE57479">
+            <End Role="Purchase_Categories" EntitySet="Purchase_Categories" />
+            <End Role="PO_Details" EntitySet="PO_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="workforce_projectModelStoreContainer" CdmEntityContainer="workforce_Entities">
+          <EntitySetMapping Name="Industry_Details">
+            <EntityTypeMapping TypeName="workforce_projectModel.Industry_Details">
+              <MappingFragment StoreEntitySet="Industry_Details">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Industry_FullName" ColumnName="Industry_FullName" />
+                <ScalarProperty Name="Industry_ShortName" ColumnName="Industry_ShortName" />
+                <ScalarProperty Name="Industry_Code" ColumnName="Industry_Code" />
+                <ScalarProperty Name="Industry_TypeID" ColumnName="Industry_TypeID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Email_ID" ColumnName="Email_ID" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Industry_Types">
+            <EntityTypeMapping TypeName="workforce_projectModel.Industry_Types">
+              <MappingFragment StoreEntitySet="Industry_Types">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IndustryType" ColumnName="IndustryType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PO_Details">
+            <EntityTypeMapping TypeName="workforce_projectModel.PO_Details">
+              <MappingFragment StoreEntitySet="PO_Details">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="INDUSTRY_ID" ColumnName="INDUSTRY_ID" />
+                <ScalarProperty Name="PO_DATE" ColumnName="PO_DATE" />
+                <ScalarProperty Name="PO_NUMBER" ColumnName="PO_NUMBER" />
+                <ScalarProperty Name="PURCHASE_CATEGORYID" ColumnName="PURCHASE_CATEGORYID" />
+                <ScalarProperty Name="WORK_SCOPE" ColumnName="WORK_SCOPE" />
+                <ScalarProperty Name="DEPT_PRIMARY_CONTACTNAME" ColumnName="DEPT_PRIMARY_CONTACTNAME" />
+                <ScalarProperty Name="DEPT_PRIMARY_CONTACTNUMBER" ColumnName="DEPT_PRIMARY_CONTACTNUMBER" />
+                <ScalarProperty Name="DEPT_PRIMARY_EMAILID" ColumnName="DEPT_PRIMARY_EMAILID" />
+                <ScalarProperty Name="PURCHASE_CONTACTNAME" ColumnName="PURCHASE_CONTACTNAME" />
+                <ScalarProperty Name="PURCHASE_CONTACTNUMBER" ColumnName="PURCHASE_CONTACTNUMBER" />
+                <ScalarProperty Name="PURCHASE_EMAILID" ColumnName="PURCHASE_EMAILID" />
+                <ScalarProperty Name="PAYMENT_CONTACTNAME" ColumnName="PAYMENT_CONTACTNAME" />
+                <ScalarProperty Name="PAYMENT_CONTACTNUMBER" ColumnName="PAYMENT_CONTACTNUMBER" />
+                <ScalarProperty Name="PAYMENT_EMAILID" ColumnName="PAYMENT_EMAILID" />
+                <ScalarProperty Name="PAYMENT_DATE" ColumnName="PAYMENT_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchase_Categories">
+            <EntityTypeMapping TypeName="workforce_projectModel.Purchase_Categories">
+              <MappingFragment StoreEntitySet="Purchase_Categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="purchase_categorytype" ColumnName="purchase_categorytype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

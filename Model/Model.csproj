@@ -30,8 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,7 +48,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Industry_Details.cs">
+      <DependentUpon>workforce-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Industry_Types.cs">
+      <DependentUpon>workforce-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PO_Details.cs">
+      <DependentUpon>workforce-model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Purchase_Categories.cs">
+      <DependentUpon>workforce-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="workforce-model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>workforce-model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="workforce-model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>workforce-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="workforce-model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>workforce-model.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="workforce-model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>workforce-model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="workforce-model.edmx.diagram">
+      <DependentUpon>workforce-model.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="workforce-model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>workforce-model.edmx</DependentUpon>
+      <LastGenOutput>workforce-model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="workforce-model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>workforce-model.edmx</DependentUpon>
+      <LastGenOutput>workforce-model.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
