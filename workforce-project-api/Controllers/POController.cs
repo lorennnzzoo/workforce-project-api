@@ -14,6 +14,7 @@ namespace workforce_project_api.Controllers
         private PoCrud pc = new PoCrud();
 
         [HttpPost]
+        [Route("Api/Po/Create")]
         public IHttpActionResult Create(PO_Details PO)
         {
             int response = 0;
@@ -26,7 +27,7 @@ namespace workforce_project_api.Controllers
                 }
                 else if(response==202)
                 {
-                    return BadRequest("Industry Doesnt Exist");
+                    return NotFound();
                 }
                 else
                 {
@@ -40,6 +41,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpGet]
+        [Route("Api/Po/GetAll")]
         public IHttpActionResult GetAllPO(int id)
         {
             List<Model.ReturnClasses.Po> Pos = new List<Model.ReturnClasses.Po>();
@@ -83,6 +85,81 @@ namespace workforce_project_api.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("Api/Po/EditById")]
+        public IHttpActionResult Edit(PO_Details po)
+        {
+            int response = 0;
+            try
+            {
+                response = pc.EditPoDetails(po);
+                if(response>0 && response!=202)
+                {
+                    return Ok("Successfully Edited Po");
+                }
+                else if(response==202)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Unable To Edit PO");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
 
+        [HttpGet]
+        [Route("Api/Po/DeleteById")]
+        public IHttpActionResult Delete(int id)
+        {
+            int response = 0;
+            try
+            {
+                response = pc.DeletePoById(id);
+                if(response>0 && response!=202)
+                {
+                    return Ok("Successfully Deleted PO");
+                }
+                else if(response==202)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Unable To Delete PO");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("Api/Po/GetAllPurchaseCategories")]
+        public IHttpActionResult GetPurchaseCategories()
+        {
+            List<Model.ReturnClasses.PurchaseCategories_Types> pctypes = new List<Model.ReturnClasses.PurchaseCategories_Types>();
+            try
+            {
+                pctypes = pc.GetPurchaseCategories();
+                if(pctypes!=null)
+                {
+                    return Ok(pctypes);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

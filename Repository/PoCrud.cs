@@ -10,12 +10,22 @@ namespace Repository
     public class PoCrud
     {
         private workforce_Entities wfe = new workforce_Entities();
-        public List<Purchase_Categories> GetPurchaseCategories()
+        public List<Model.ReturnClasses.PurchaseCategories_Types> GetPurchaseCategories()
         {
             var purchaseCategories = wfe.Purchase_Categories.ToList();
             if(purchaseCategories!=null)
             {
-                return purchaseCategories;
+                List<Model.ReturnClasses.PurchaseCategories_Types> pctypes = new List<Model.ReturnClasses.PurchaseCategories_Types>();
+                foreach(Purchase_Categories pc in purchaseCategories)
+                {
+                    Model.ReturnClasses.PurchaseCategories_Types pcc = new Model.ReturnClasses.PurchaseCategories_Types
+                    {
+                        id=pc.id,
+                        purchase_categorytype=pc.purchase_categorytype.Replace("\r\n", ""),
+                    };
+                    pctypes.Add(pcc);
+                }
+                return pctypes;
             }
             else
             {
