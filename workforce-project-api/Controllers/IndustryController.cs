@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Repository;
 using Model;
+using Newtonsoft.Json;
 
 namespace workforce_project_api.Controllers
 {
@@ -17,10 +18,10 @@ namespace workforce_project_api.Controllers
         public IHttpActionResult Create(Industry_Details newIndustry)
         {
             int response = 0;
-            if (ModelState.IsValid)
+            try
             {
-               response=ic.createIndustry(newIndustry);
-                if(response>0)
+                response = ic.createIndustry(newIndustry);
+                if (response > 0)
                 {
                     return Ok("Industry Successfully Created");
                 }
@@ -28,12 +29,36 @@ namespace workforce_project_api.Controllers
                 {
                     return Ok("Unable To Create Industry");
                 }
-            }
-            else
+            }   
+            catch(Exception ex)
             {
-                return BadRequest("Model Is Incomplete");
-            }            
+                return InternalServerError(ex);
+            }
+                         
         }
 
+        [HttpGet]
+        public IHttpActionResult GetAll()
+        {
+            List<Industry_Details> il = new List<Industry_Details>();
+            try
+            {
+                il = ic.getAllIndustries();
+                if(il !=null)
+                {
+                    string json = JsonConvert.SerializeObject(il);
+
+                    return Ok(json);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }
