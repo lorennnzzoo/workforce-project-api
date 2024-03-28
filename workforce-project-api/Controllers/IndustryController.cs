@@ -15,6 +15,7 @@ namespace workforce_project_api.Controllers
         private IndustriesCrud ic = new IndustriesCrud();
         
         [HttpPost]
+        [Route("Api/Industry/Create")]
         public IHttpActionResult Create(Industry_Details newIndustry)
         {
             int response = 0;
@@ -38,17 +39,17 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpGet]
+        [Route("Api/Industry/GetAll")]
         public IHttpActionResult GetAll()
         {
-            List<Industry_Details> il = new List<Industry_Details>();
+            List<Model.ReturnClasses.Industry> il = new List<Model.ReturnClasses.Industry>();
             try
             {
                 il = ic.getAllIndustries();
                 if(il !=null)
-                {
-                    string json = JsonConvert.SerializeObject(il);
+                {                    
 
-                    return Ok(json);
+                    return Ok(il);
                 }
                 else
                 {
@@ -59,6 +60,84 @@ namespace workforce_project_api.Controllers
             {
                 return InternalServerError(ex);
             }
+        }
+
+        [HttpGet]
+        
+        public IHttpActionResult GetById(int id)
+        {
+            Model.ReturnClasses.Industry iid = new Model.ReturnClasses.Industry();
+            try
+            {
+                iid = ic.getIndustryById(id);
+                if(iid!=null)
+                {
+                    return Ok(iid);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("Api/Industry/EditById")]
+        public IHttpActionResult EditById(Industry_Details editid)
+        {
+            int response = 0;
+            try
+            {
+                response = ic.editIndustryById(editid);
+                if(response>0 && response !=202)
+                {
+                    return Ok("Successfully Edited Industry");
+                }
+                else if(response==202)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Unable To Edit Industry");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("Api/Industry/DeleteById")]
+        public IHttpActionResult DeleteById(int id)
+        {
+            int response = 0;
+            try
+            {
+                response = ic.deleteIndustryById(id);
+                if(response>0 && response!=202)
+                {
+                    return Ok("Successfully Deleted Industry");
+                }
+                else if(response==202)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Unable To Delete Industry");
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
         }
     }
 }

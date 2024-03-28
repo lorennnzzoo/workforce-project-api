@@ -46,12 +46,35 @@ namespace Repository
             }           
         }
 
-        public List<Industry_Details> getAllIndustries()
+        public List<Model.ReturnClasses.Industry> getAllIndustries()
         {           
             var industries = wfe.Industry_Details.ToList();              
             if(industries != null)
             {
-                return industries;
+                List<Model.ReturnClasses.Industry> returnallinds = new List<Model.ReturnClasses.Industry>();
+                foreach(Industry_Details ids in industries)
+                {
+                    Model.ReturnClasses.Industry newid = new Model.ReturnClasses.Industry
+                    {
+                        id = ids.id,
+                        Industry_FullName = ids.Industry_FullName,
+                        Industry_ShortName = ids.Industry_ShortName,
+                        Industry_Code = ids.Industry_Code,
+                        Industry_TypeID = ids.Industry_TypeID,
+                        Address = ids.Address,
+                        City = ids.City,
+                        State = ids.State,
+                        Email_ID = ids.Email_ID,
+                        ContactNumber = ids.ContactNumber,
+                        
+                    };
+                    returnallinds.Add(newid);
+                    
+                }
+               
+
+
+                return returnallinds;
             }
             else
             {
@@ -59,12 +82,27 @@ namespace Repository
             }            
         }
 
-        public Industry_Details getIndustryById(int id)
+        public Model.ReturnClasses.Industry getIndustryById(int id)
         {
             var industry = wfe.Industry_Details.FirstOrDefault(ind => ind.id == id);
             if(industry !=null)
             {
-                return industry;
+                Model.ReturnClasses.Industry newid = new Model.ReturnClasses.Industry
+                {
+                    id = industry.id,
+                    Industry_FullName = industry.Industry_FullName,
+                    Industry_ShortName = industry.Industry_ShortName,
+                    Industry_Code = industry.Industry_Code,
+                    Industry_TypeID = industry.Industry_TypeID,
+                    Address = industry.Address,
+                    City = industry.City,
+                    State = industry.State,
+                    Email_ID = industry.Email_ID,
+                    ContactNumber = industry.ContactNumber,
+
+                };
+
+                return newid;
             }
             else
             {
