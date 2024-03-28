@@ -23,39 +23,26 @@ namespace Repository
             }
         }
 
-        public string CreatePO(PO_Details PO)
+        public int CreatePO(PO_Details PO)
         {
             wfe.PO_Details.Add(PO);
             int success=wfe.SaveChanges();
-            if(success>0)
-            {
-                return "Successfully created PO";
-            }
-            else
-            {
-                return "Unable To Create PO";
-            }
+            return success;
         }
 
-        public string DeletePoById(int id)
+        public int DeletePoById(int id)
         {
             var Po = wfe.PO_Details.FirstOrDefault(e => e.id == id);
             if(Po !=null)
             {
                 wfe.PO_Details.Remove(Po);
                 int success=wfe.SaveChanges();
-                if(success>0)
-                {
-                    return "Successfully Deleted PO";
-                }
-                else
-                {
-                    return "Unable To Delete PO";
-                }
+                return success;
             }
             else
             {
-                return "No PO Found For id :" + id.ToString();
+                return 202;
+                //unable to delete po details for id
             }
         }
 
@@ -85,7 +72,7 @@ namespace Repository
             }
         }
 
-        public string EditPoDetails(PO_Details UpdatedPO)
+        public int EditPoDetails(PO_Details UpdatedPO)
         {
             var Po = wfe.PO_Details.FirstOrDefault(e => e.id == UpdatedPO.id);
             if(Po!=null)
@@ -107,18 +94,12 @@ namespace Repository
                 Po.PAYMENT_DATE = UpdatedPO.PAYMENT_DATE;
 
                 int success=wfe.SaveChanges();
-                if(success>0)
-                {
-                    return "Successfully Edited PO Details";
-                }
-                else
-                {
-                    return "Unable To Edit PO Details";
-                }
+                return success;
             }
             else
             {
-                return "No PO Found To Edit";
+                return 202;
+                //unable to edit po details for id
             }
         }
     }

@@ -58,7 +58,7 @@ namespace RepoTesting
 
 
             //testing Repo Methods Po
-            Repository.PoCrud pc = new PoCrud();
+            //Repository.PoCrud pc = new PoCrud();
 
             //PO_Details podd = new PO_Details
             //{
@@ -80,9 +80,9 @@ namespace RepoTesting
             //};
             //string succpo = pc.CreatePO(podd);
 
-            List<PO_Details> pode = pc.GetAllPOsByIndustryId(1);
-            PO_Details po = pc.GetPoById(1);
-            List<Purchase_Categories> pcat = pc.GetPurchaseCategories();
+            //List<PO_Details> pode = pc.GetAllPOsByIndustryId(1);
+            //PO_Details po = pc.GetPoById(1);
+            //List<Purchase_Categories> pcat = pc.GetPurchaseCategories();
 
 
             //PO_Details edpodd = new PO_Details
@@ -107,7 +107,7 @@ namespace RepoTesting
 
             //string succedpodd = pc.EditPoDetails(edpodd);
 
-            string sucdel = pc.DeletePoById(3);
+            //string sucdel = pc.DeletePoById(3);
         }
     }
 }

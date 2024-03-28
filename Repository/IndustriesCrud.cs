@@ -23,39 +23,26 @@ namespace Repository
                 return null;
             }
         }
-        public string createIndustry(Industry_Details indModel)
+        public int createIndustry(Industry_Details indModel)
         {               
             wfe.Industry_Details.Add(indModel);
             int success = wfe.SaveChanges();
-            if (success > 0)
-            {
-                return "Successfully Created Industry";
-            }
-            else
-            {
-                return "Unable To Create Industry";
-            }                               
+            return success;                          
         }
         
-        public string deleteIndustryById(int id)
+        public int deleteIndustryById(int id)
         {            
             var indToDelete = wfe.Industry_Details.FirstOrDefault(e => e.id == id);
             if(indToDelete != null)
             {
                 wfe.Industry_Details.Remove(indToDelete);
                 int success=wfe.SaveChanges();
-                if(success>0)
-                {
-                    return "Succesfully Deleted Industry";
-                }
-                else
-                {
-                    return "Unable To Delete Industry";
-                }
+                return success;
             }
             else
             {
-                return "No Industry Found for id :" + id.ToString();
+                return 202;
+                //unable to delete industry for id
             }           
         }
 
@@ -85,7 +72,7 @@ namespace Repository
             }
         }
 
-        public string editIndustryById(Industry_Details updatedIndustry)
+        public int editIndustryById(Industry_Details updatedIndustry)
         {
             var industry = wfe.Industry_Details.FirstOrDefault(ind => ind.id == updatedIndustry.id);
             if(industry!=null)
@@ -100,18 +87,12 @@ namespace Repository
                 industry.Email_ID = updatedIndustry.Email_ID;
                 industry.ContactNumber = updatedIndustry.ContactNumber;
                 int success= wfe.SaveChanges();
-                if(success>0)
-                {
-                    return "Successfully Edited Industry";
-                }
-                else
-                {
-                    return "Unable to Edit Industry";
-                }
+                return success;
             }
             else
             {
-                return "No Indusrty Found to Edit";
+                return 202;
+                //unable to edit industry for id
             }            
         }
     }
