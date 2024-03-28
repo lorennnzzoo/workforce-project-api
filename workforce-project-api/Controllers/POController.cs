@@ -61,6 +61,28 @@ namespace workforce_project_api.Controllers
             }
         }
 
+        [HttpGet]
+        public IHttpActionResult GetPoById(int id)
+        {
+            Model.ReturnClasses.Po po = new Model.ReturnClasses.Po();
+            try
+            {
+                po = pc.GetPoById(id);
+                if(po!=null)
+                {
+                    return Ok(po);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
 
     }
 }

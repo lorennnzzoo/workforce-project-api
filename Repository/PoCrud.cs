@@ -94,12 +94,31 @@ namespace Repository
             }
         }
 
-        public PO_Details GetPoById(int id)
+        public Model.ReturnClasses.Po GetPoById(int id)
         {
             var PO = wfe.PO_Details.FirstOrDefault(e => e.id == id);
             if (PO != null)
             {
-                return PO;
+                Model.ReturnClasses.Po po = new Model.ReturnClasses.Po
+                {
+                    id = PO.id,
+                    INDUSTRY_ID = PO.INDUSTRY_ID,
+                    PO_DATE = PO.PO_DATE,
+                    PO_NUMBER = PO.PO_NUMBER,
+                    PURCHASE_CATEGORYID = PO.PURCHASE_CATEGORYID,
+                    WORK_SCOPE = PO.WORK_SCOPE,
+                    DEPT_PRIMARY_CONTACTNAME = PO.DEPT_PRIMARY_CONTACTNAME,
+                    DEPT_PRIMARY_CONTACTNUMBER = PO.DEPT_PRIMARY_CONTACTNUMBER,
+                    DEPT_PRIMARY_EMAILID = PO.DEPT_PRIMARY_EMAILID,
+                    PURCHASE_CONTACTNAME = PO.PURCHASE_CONTACTNAME,
+                    PURCHASE_CONTACTNUMBER = PO.PURCHASE_CONTACTNUMBER,
+                    PURCHASE_EMAILID = PO.PURCHASE_EMAILID,
+                    PAYMENT_CONTACTNAME = PO.PAYMENT_CONTACTNAME,
+                    PAYMENT_CONTACTNUMBER = PO.PAYMENT_CONTACTNUMBER,
+                    PAYMENT_EMAILID = PO.PAYMENT_EMAILID,
+                    PAYMENT_DATE = PO.PAYMENT_DATE,
+                };
+                return po;
             }
             else
             {
