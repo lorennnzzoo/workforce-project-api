@@ -137,7 +137,30 @@ namespace workforce_project_api.Controllers
             {
                 return InternalServerError(ex);
             }
+        }
 
+        [HttpGet]
+        [Route("Api/Industry/GetAllIndustryTypes")]
+        public IHttpActionResult GetAllIndustryTypes()
+        {
+            List<Model.ReturnClasses.Industry_Types> IT = new List<Model.ReturnClasses.Industry_Types>();
+            try
+            {
+                IT = ic.getIndustryTypes();
+                if(IT!=null)
+                {
+                    return Ok(IT);
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

@@ -11,12 +11,22 @@ namespace Repository
     {
         private workforce_Entities wfe = new workforce_Entities();
 
-        public List<Industry_Types> getIndustryTypes()
+        public List<Model.ReturnClasses.Industry_Types> getIndustryTypes()
         {
             var IndustryTypes = wfe.Industry_Types.ToList();
             if(IndustryTypes != null)
             {
-                return IndustryTypes;
+                List<Model.ReturnClasses.Industry_Types> lits = new List<Model.ReturnClasses.Industry_Types>();
+                foreach(Industry_Types indtype in IndustryTypes)
+                {
+                    Model.ReturnClasses.Industry_Types idty = new Model.ReturnClasses.Industry_Types
+                    {
+                        id=indtype.id,
+                        IndustryType=indtype.IndustryType.Replace("\r\n",""),
+                    };
+                    lits.Add(idty);
+                }
+                return lits;
             }
             else
             {

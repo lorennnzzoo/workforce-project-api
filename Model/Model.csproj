@@ -65,6 +65,7 @@
       <DependentUpon>workforce-model.tt</DependentUpon>
     </Compile>
     <Compile Include="ReturnClasses\Industry.cs" />
+    <Compile Include="ReturnClasses\Industry_Types.cs" />
     <Compile Include="ReturnClasses\Po.cs" />
     <Compile Include="workforce-model.Context.cs">
       <AutoGen>True</AutoGen>
