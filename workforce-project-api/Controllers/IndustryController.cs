@@ -28,7 +28,7 @@ namespace workforce_project_api.Controllers
                 }
                 else
                 {
-                    return Ok("Unable To Create Industry");
+                    return BadRequest("Unable To Create Industry");
                 }
             }   
             catch(Exception ex)
