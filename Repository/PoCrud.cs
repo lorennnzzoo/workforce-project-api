@@ -166,5 +166,36 @@ namespace Repository
                 //unable to edit po details for id
             }
         }
+
+        public int AddPurchaseCategories(Purchase_Categories  puc)
+        {
+            var isPurExist = wfe.Purchase_Categories.Any(e => e.purchase_categorytype == puc.purchase_categorytype);
+            if (isPurExist)
+            {
+                return 100;
+                //purchase_categorytype already exist
+            }
+            else
+            {
+                wfe.Purchase_Categories.Add(puc);
+                int success=wfe.SaveChanges();
+                return success;
+            }
+        }
+
+        public int DeletePurchaseCategory(int id)
+        {
+            var isCategoryExist = wfe.Purchase_Categories.FirstOrDefault(e => e.id == id);
+            if(isCategoryExist!=null)
+            {
+                wfe.Purchase_Categories.Remove(isCategoryExist);
+                int success = wfe.SaveChanges();
+                return success;
+            }
+            else
+            {
+                return 202;
+            }
+        }
     }
 }

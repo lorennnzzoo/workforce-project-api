@@ -143,5 +143,37 @@ namespace Repository
                 //unable to edit industry for id
             }            
         }
+
+        public int AddIndustryTypes(Industry_Types IT)
+        {
+            var isIndTypeExist = wfe.Industry_Types.Any(e => e.IndustryType == IT.IndustryType);
+            if(isIndTypeExist)
+            {
+                return 100;
+                //industryType already exists
+            }
+            else
+            {
+                wfe.Industry_Types.Add(IT);
+                int success=wfe.SaveChanges();
+                return success;
+            }
+        }
+
+        public int DeleteIndustryTypes(int id)
+        {
+            var isIndTypeExist = wfe.Industry_Types.FirstOrDefault(e => e.id == id);
+            if(isIndTypeExist != null)
+            {
+                wfe.Industry_Types.Remove(isIndTypeExist);
+                int success = wfe.SaveChanges();
+                return success;
+            }
+            else
+            {
+                return 202;
+                //type doesnt exist to delete
+            }
+        }
     }
 }

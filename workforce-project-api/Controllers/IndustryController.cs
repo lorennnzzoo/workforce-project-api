@@ -162,5 +162,60 @@ namespace workforce_project_api.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [HttpPost]
+        [Route("Api/Industry/AddIndustryTypes")]
+        public IHttpActionResult AddIndustryType(Industry_Types it)
+        {
+            int response = 0;
+            try
+            {
+                response = ic.AddIndustryTypes(it);
+                if(response>0 && response !=100)
+                {
+                    return Ok("Successfully Added Industry Type");
+                }
+                else if(response==100)
+                {
+                    return BadRequest("Industry Type With Name \"" + it.IndustryType + "\" Already Exists");
+                }
+                else
+                {
+                    return BadRequest("Unable To Add Industry Type");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("Api/Industry/DeleteIndustryTypes")]
+        public IHttpActionResult DeleteIndustryType(int id)
+        {
+            int response = 0;
+            try
+            {
+                response = ic.DeleteIndustryTypes(id);
+                if(response>0 && response !=202)
+                {
+                    return Ok("Successfully Deleted");
+                }
+                else if(response==202)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Unable To Delete");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
     }
 }

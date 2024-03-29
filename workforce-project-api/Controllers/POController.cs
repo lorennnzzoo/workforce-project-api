@@ -161,5 +161,59 @@ namespace workforce_project_api.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [HttpPost]
+        [Route("Api/Po/AddPurchaseCategory")]
+        public IHttpActionResult AddPurchaseCategory(Purchase_Categories puc)
+        {
+            int response = 0;
+            try
+            {
+                response = pc.AddPurchaseCategories(puc);
+                if (response > 0  && response != 100)
+                {
+                    return Ok("Successfully Addded New Purchase Category");
+                }
+                else if(response==100)
+                {
+                    return BadRequest("Purchase Category With Name \"" + puc.purchase_categorytype + "\" Already Exists");
+                }
+                else
+                {
+                    return BadRequest("Unable To Add Purchase Category");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("Api/Po/DeletePurchaseCategory")]
+        public IHttpActionResult DeletePurchaseCategory(int id)
+        {
+            int response = 0;
+            try
+            {
+                response = pc.DeletePurchaseCategory(id);
+                if(response>0 && response!=202)
+                {
+                    return Ok("Successfully Deleted");
+                }
+                else if(response==202)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return BadRequest("Unable To Delete");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }
