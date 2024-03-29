@@ -112,7 +112,7 @@ namespace workforce_project_api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("Api/Po/DeleteById")]
         public IHttpActionResult Delete(int id)
         {
@@ -189,7 +189,7 @@ namespace workforce_project_api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("Api/Po/DeletePurchaseCategory")]
         public IHttpActionResult DeletePurchaseCategory(int id)
         {

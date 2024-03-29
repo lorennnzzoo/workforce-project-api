@@ -112,7 +112,7 @@ namespace workforce_project_api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("Api/Industry/DeleteById")]
         public IHttpActionResult DeleteById(int id)
         {
@@ -190,7 +190,7 @@ namespace workforce_project_api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("Api/Industry/DeleteIndustryTypes")]
         public IHttpActionResult DeleteIndustryType(int id)
         {
