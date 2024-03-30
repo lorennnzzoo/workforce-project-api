@@ -10,12 +10,13 @@ using Newtonsoft.Json;
 
 namespace workforce_project_api.Controllers
 {
+    [RoutePrefix("Api/Industry")]
     public class IndustryController : ApiController
     {
         private IndustriesCrud ic = new IndustriesCrud();
         
         [HttpPost]
-        [Route("Api/Industry/Create")]
+        [Route("Create")]
         public IHttpActionResult Create(Industry_Details newIndustry)
         {
             int response = 0;
@@ -39,7 +40,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpGet]
-        [Route("Api/Industry/GetAll")]
+        [Route("GetAll")]
         public IHttpActionResult GetAll()
         {
             List<Model.ReturnClasses.Industry> il = new List<Model.ReturnClasses.Industry>();
@@ -63,7 +64,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpGet]
-        
+        [Route("GetById")]
         public IHttpActionResult GetById(int id)
         {
             Model.ReturnClasses.Industry iid = new Model.ReturnClasses.Industry();
@@ -86,7 +87,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpPost]
-        [Route("Api/Industry/EditById")]
+        [Route("EditById")]
         public IHttpActionResult EditById(Industry_Details editid)
         {
             int response = 0;
@@ -113,7 +114,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpDelete]
-        [Route("Api/Industry/DeleteById")]
+        [Route("DeleteById")]
         public IHttpActionResult DeleteById(int id)
         {
             int response = 0;
@@ -140,7 +141,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpGet]
-        [Route("Api/Industry/GetAllIndustryTypes")]
+        [Route("GetAllIndustryTypes")]
         public IHttpActionResult GetAllIndustryTypes()
         {
             List<Model.ReturnClasses.Industry_Types> IT = new List<Model.ReturnClasses.Industry_Types>();
@@ -164,7 +165,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpPost]
-        [Route("Api/Industry/AddIndustryTypes")]
+        [Route("AddIndustryTypes")]
         public IHttpActionResult AddIndustryType(Industry_Types it)
         {
             int response = 0;
@@ -191,7 +192,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpDelete]
-        [Route("Api/Industry/DeleteIndustryTypes")]
+        [Route("DeleteIndustryTypes")]
         public IHttpActionResult DeleteIndustryType(int id)
         {
             int response = 0;

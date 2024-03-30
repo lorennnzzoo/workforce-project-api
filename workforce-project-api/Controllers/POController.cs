@@ -9,12 +9,13 @@ using Model;
 
 namespace workforce_project_api.Controllers
 {
+    [RoutePrefix("Api/Po")]
     public class POController : ApiController
     {
         private PoCrud pc = new PoCrud();
 
         [HttpPost]
-        [Route("Api/Po/Create")]
+        [Route("Create")]
         public IHttpActionResult Create(PO_Details PO)
         {
             int response = 0;
@@ -41,7 +42,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpGet]
-        [Route("Api/Po/GetAll")]
+        [Route("GetAll")]
         public IHttpActionResult GetAllPO(int id)
         {
             List<Model.ReturnClasses.Po> Pos = new List<Model.ReturnClasses.Po>();
@@ -64,6 +65,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpGet]
+        [Route("GetPoById")]
         public IHttpActionResult GetPoById(int id)
         {
             Model.ReturnClasses.Po po = new Model.ReturnClasses.Po();
@@ -86,7 +88,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpPost]
-        [Route("Api/Po/EditById")]
+        [Route("EditById")]
         public IHttpActionResult Edit(PO_Details po)
         {
             int response = 0;
@@ -113,7 +115,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpDelete]
-        [Route("Api/Po/DeleteById")]
+        [Route("DeleteById")]
         public IHttpActionResult Delete(int id)
         {
             int response = 0;
@@ -140,7 +142,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpGet]
-        [Route("Api/Po/GetAllPurchaseCategories")]
+        [Route("GetAllPurchaseCategories")]
         public IHttpActionResult GetPurchaseCategories()
         {
             List<Model.ReturnClasses.PurchaseCategories_Types> pctypes = new List<Model.ReturnClasses.PurchaseCategories_Types>();
@@ -163,7 +165,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpPost]
-        [Route("Api/Po/AddPurchaseCategory")]
+        [Route("AddPurchaseCategory")]
         public IHttpActionResult AddPurchaseCategory(Purchase_Categories puc)
         {
             int response = 0;
@@ -190,7 +192,7 @@ namespace workforce_project_api.Controllers
         }
 
         [HttpDelete]
-        [Route("Api/Po/DeletePurchaseCategory")]
+        [Route("DeletePurchaseCategory")]
         public IHttpActionResult DeletePurchaseCategory(int id)
         {
             int response = 0;
