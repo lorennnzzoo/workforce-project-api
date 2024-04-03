@@ -16,7 +16,7 @@ namespace workforce_project_api.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public IHttpActionResult Create(PO_Details PO)
+        public IHttpActionResult Create(Model.ReturnClasses.Po PO)
         {
             int response = 0;
             try
@@ -89,7 +89,7 @@ namespace workforce_project_api.Controllers
 
         [HttpPost]
         [Route("EditById")]
-        public IHttpActionResult Edit(PO_Details po)
+        public IHttpActionResult Edit(Model.ReturnClasses.Po po)
         {
             int response = 0;
             try

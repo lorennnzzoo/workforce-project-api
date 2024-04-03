@@ -12,7 +12,7 @@ namespace Model.ReturnClasses
         public string Industry_FullName { get; set; }
         public string Industry_ShortName { get; set; }
         public string Industry_Code { get; set; }
-        public int? Industry_TypeID { get; set; }
+        public string Industry_Type { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }

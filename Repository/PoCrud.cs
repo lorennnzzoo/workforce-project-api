@@ -33,12 +33,33 @@ namespace Repository
             }
         }
 
-        public int CreatePO(PO_Details PO)
+        public int CreatePO(Model.ReturnClasses.Po PO)
         {
             var isindExist = wfe.Industry_Details.FirstOrDefault(e => e.id == PO.INDUSTRY_ID);
             if(isindExist!=null)
             {
-                wfe.PO_Details.Add(PO);
+                var category = wfe.Purchase_Categories.FirstOrDefault(e => e.purchase_categorytype == PO.PURCHASE_CATEGORY);
+                PO_Details newpo = new PO_Details
+                {
+                    id=PO.id,
+                    INDUSTRY_ID=PO.INDUSTRY_ID,
+                    PO_DATE=PO.PO_DATE,
+                    PO_NUMBER=PO.PO_NUMBER,
+                    WORK_SCOPE=PO.WORK_SCOPE,
+                    DEPT_PRIMARY_CONTACTNAME=PO.DEPT_PRIMARY_CONTACTNAME,
+                    DEPT_PRIMARY_CONTACTNUMBER=PO.DEPT_PRIMARY_CONTACTNUMBER,
+                    DEPT_PRIMARY_EMAILID=PO.DEPT_PRIMARY_EMAILID,
+                    PURCHASE_CONTACTNAME=PO.PURCHASE_CONTACTNAME,
+                    PURCHASE_CONTACTNUMBER=PO.PURCHASE_CONTACTNUMBER,
+                    PURCHASE_EMAILID=PO.PURCHASE_EMAILID,
+                    PAYMENT_CONTACTNAME=PO.PAYMENT_CONTACTNAME,
+                    PAYMENT_CONTACTNUMBER=PO.PAYMENT_CONTACTNUMBER,
+                    PAYMENT_EMAILID=PO.PAYMENT_EMAILID,
+                    PURCHASE_CATEGORYID=category.id,
+                    PAYMENT_DATE=PO.PAYMENT_DATE
+                };
+
+                wfe.PO_Details.Add(newpo);
                 int success = wfe.SaveChanges();
                 return success;
             }
@@ -74,13 +95,14 @@ namespace Repository
                 List<Model.ReturnClasses.Po> Pos = new List<Model.ReturnClasses.Po>();
                 foreach(PO_Details po in PoDetalisByIndustryId)
                 {
+                    var category = wfe.Purchase_Categories.FirstOrDefault(e => e.id == po.PURCHASE_CATEGORYID);
                     Model.ReturnClasses.Po getpo = new Model.ReturnClasses.Po
                     {
                         id = po.id,
                         INDUSTRY_ID = po.INDUSTRY_ID,
                         PO_DATE = po.PO_DATE,
                         PO_NUMBER = po.PO_NUMBER,
-                        PURCHASE_CATEGORYID = po.PURCHASE_CATEGORYID,
+                        PURCHASE_CATEGORY = category.purchase_categorytype,
                         WORK_SCOPE = po.WORK_SCOPE,
                         DEPT_PRIMARY_CONTACTNAME = po.DEPT_PRIMARY_CONTACTNAME,
                         DEPT_PRIMARY_CONTACTNUMBER = po.DEPT_PRIMARY_CONTACTNUMBER,
@@ -109,13 +131,14 @@ namespace Repository
             var PO = wfe.PO_Details.FirstOrDefault(e => e.id == id);
             if (PO != null)
             {
+                var category = wfe.Purchase_Categories.FirstOrDefault(e => e.id == PO.PURCHASE_CATEGORYID);
                 Model.ReturnClasses.Po po = new Model.ReturnClasses.Po
                 {
                     id = PO.id,
                     INDUSTRY_ID = PO.INDUSTRY_ID,
                     PO_DATE = PO.PO_DATE,
                     PO_NUMBER = PO.PO_NUMBER,
-                    PURCHASE_CATEGORYID = PO.PURCHASE_CATEGORYID,
+                    PURCHASE_CATEGORY = category.purchase_categorytype,
                     WORK_SCOPE = PO.WORK_SCOPE,
                     DEPT_PRIMARY_CONTACTNAME = PO.DEPT_PRIMARY_CONTACTNAME,
                     DEPT_PRIMARY_CONTACTNUMBER = PO.DEPT_PRIMARY_CONTACTNUMBER,
@@ -136,15 +159,16 @@ namespace Repository
             }
         }
 
-        public int EditPoDetails(PO_Details UpdatedPO)
+        public int EditPoDetails(Model.ReturnClasses.Po UpdatedPO)
         {
             var Po = wfe.PO_Details.FirstOrDefault(e => e.id == UpdatedPO.id);
+            var categoryofpo = wfe.Purchase_Categories.FirstOrDefault(e => e.purchase_categorytype == UpdatedPO.PURCHASE_CATEGORY);
             if(Po!=null)
             {
                 Po.INDUSTRY_ID = UpdatedPO.INDUSTRY_ID;            
                 Po.PO_DATE = UpdatedPO.PO_DATE;
                 Po.PO_NUMBER = UpdatedPO.PO_NUMBER;
-                Po.PURCHASE_CATEGORYID = UpdatedPO.PURCHASE_CATEGORYID;
+                Po.PURCHASE_CATEGORYID = categoryofpo.id;
                 Po.WORK_SCOPE = UpdatedPO.WORK_SCOPE;
                 Po.DEPT_PRIMARY_CONTACTNAME = UpdatedPO.DEPT_PRIMARY_CONTACTNAME;
                 Po.DEPT_PRIMARY_CONTACTNUMBER = UpdatedPO.DEPT_PRIMARY_CONTACTNUMBER;

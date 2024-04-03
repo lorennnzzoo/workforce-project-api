@@ -17,7 +17,7 @@ namespace workforce_project_api.Controllers
         
         [HttpPost]
         [Route("Create")]
-        public IHttpActionResult Create(Industry_Details newIndustry)
+        public IHttpActionResult Create(Model.ReturnClasses.Industry newIndustry)
         {
             int response = 0;
             try
@@ -88,7 +88,7 @@ namespace workforce_project_api.Controllers
 
         [HttpPost]
         [Route("EditById")]
-        public IHttpActionResult EditById(Industry_Details editid)
+        public IHttpActionResult EditById(Model.ReturnClasses.Industry editid)
         {
             int response = 0;
             try

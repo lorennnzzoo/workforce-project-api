@@ -33,9 +33,25 @@ namespace Repository
                 return null;
             }
         }
-        public int createIndustry(Industry_Details indModel)
-        {               
-            wfe.Industry_Details.Add(indModel);
+        public int createIndustry(Model.ReturnClasses.Industry indModel)
+        {
+            var type = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == indModel.Industry_Type);
+
+            Industry_Details industrymodel = new Industry_Details
+            {
+                id=indModel.id,
+                Industry_FullName=indModel.Industry_FullName,
+                Industry_ShortName=indModel.Industry_ShortName,
+                Industry_Code=indModel.Industry_Code,
+                Industry_TypeID=type.id,
+                Address=indModel.Address,
+                City=indModel.City,
+                State=indModel.State,
+                Email_ID=indModel.Email_ID,
+                ContactNumber=indModel.ContactNumber
+            };
+                 
+            wfe.Industry_Details.Add(industrymodel);
             int success = wfe.SaveChanges();
             return success;                          
         }
@@ -64,13 +80,16 @@ namespace Repository
                 List<Model.ReturnClasses.Industry> returnallinds = new List<Model.ReturnClasses.Industry>();
                 foreach(Industry_Details ids in industries)
                 {
+
+                    var typeofindustry = wfe.Industry_Types.FirstOrDefault(e => e.id == ids.Industry_TypeID);
+
                     Model.ReturnClasses.Industry newid = new Model.ReturnClasses.Industry
                     {
                         id = ids.id,
                         Industry_FullName = ids.Industry_FullName,
                         Industry_ShortName = ids.Industry_ShortName,
                         Industry_Code = ids.Industry_Code,
-                        Industry_TypeID = ids.Industry_TypeID,
+                        Industry_Type =typeofindustry.IndustryType,
                         Address = ids.Address,
                         City = ids.City,
                         State = ids.State,
@@ -97,13 +116,14 @@ namespace Repository
             var industry = wfe.Industry_Details.FirstOrDefault(ind => ind.id == id);
             if(industry !=null)
             {
+                var typeofindustry = wfe.Industry_Types.FirstOrDefault(e => e.id == industry.Industry_TypeID);
                 Model.ReturnClasses.Industry newid = new Model.ReturnClasses.Industry
                 {
                     id = industry.id,
                     Industry_FullName = industry.Industry_FullName,
                     Industry_ShortName = industry.Industry_ShortName,
                     Industry_Code = industry.Industry_Code,
-                    Industry_TypeID = industry.Industry_TypeID,
+                    Industry_Type = typeofindustry.IndustryType,
                     Address = industry.Address,
                     City = industry.City,
                     State = industry.State,
@@ -120,15 +140,16 @@ namespace Repository
             }
         }
 
-        public int editIndustryById(Industry_Details updatedIndustry)
+        public int editIndustryById(Model.ReturnClasses.Industry updatedIndustry)
         {
             var industry = wfe.Industry_Details.FirstOrDefault(ind => ind.id == updatedIndustry.id);
+            var typeofindustry = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == updatedIndustry.Industry_Type);
             if(industry!=null)
             {
                 industry.Industry_Code = updatedIndustry.Industry_Code;
                 industry.Industry_FullName = updatedIndustry.Industry_FullName;
                 industry.Industry_ShortName = updatedIndustry.Industry_ShortName;
-                industry.Industry_TypeID = updatedIndustry.Industry_TypeID;
+                industry.Industry_TypeID = typeofindustry.id;
                 industry.Address = updatedIndustry.Address;
                 industry.City = updatedIndustry.City;
                 industry.State = updatedIndustry.State;

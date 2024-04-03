@@ -12,7 +12,7 @@ namespace Model.ReturnClasses
         public Nullable<int> INDUSTRY_ID { get; set; }
         public Nullable<System.DateTime> PO_DATE { get; set; }
         public string PO_NUMBER { get; set; }
-        public Nullable<int> PURCHASE_CATEGORYID { get; set; }
+        public string PURCHASE_CATEGORY { get; set; }
         public string WORK_SCOPE { get; set; }
         public string DEPT_PRIMARY_CONTACTNAME { get; set; }
         public string DEPT_PRIMARY_CONTACTNUMBER { get; set; }
