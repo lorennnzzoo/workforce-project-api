@@ -36,24 +36,52 @@ namespace Repository
         public int createIndustry(Model.ReturnClasses.Industry indModel)
         {
             var type = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == indModel.Industry_Type);
-
-            Industry_Details industrymodel = new Industry_Details
+            if(type!=null)
             {
-                id=indModel.id,
-                Industry_FullName=indModel.Industry_FullName,
-                Industry_ShortName=indModel.Industry_ShortName,
-                Industry_Code=indModel.Industry_Code,
-                Industry_TypeID=type.id,
-                Address=indModel.Address,
-                City=indModel.City,
-                State=indModel.State,
-                Email_ID=indModel.Email_ID,
-                ContactNumber=indModel.ContactNumber
-            };
-                 
-            wfe.Industry_Details.Add(industrymodel);
-            int success = wfe.SaveChanges();
-            return success;                          
+                Industry_Details industrymodel = new Industry_Details
+                {
+                    id = indModel.id,
+                    Industry_FullName = indModel.Industry_FullName,
+                    Industry_ShortName = indModel.Industry_ShortName,
+                    Industry_Code = indModel.Industry_Code,
+                    Industry_TypeID = type.id,
+                    Address = indModel.Address,
+                    City = indModel.City,
+                    State = indModel.State,
+                    Email_ID = indModel.Email_ID,
+                    ContactNumber = indModel.ContactNumber
+                };
+
+                wfe.Industry_Details.Add(industrymodel);
+                int success = wfe.SaveChanges();
+                return success;
+            }
+            else
+            {
+                Industry_Types newtype = new Industry_Types
+                {
+                    IndustryType=indModel.Industry_Type
+                };
+                wfe.Industry_Types.Add(newtype);
+                wfe.SaveChanges();
+                var getnewtype = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == indModel.Industry_Type);
+                Industry_Details industrymodel = new Industry_Details
+                {
+                    id = indModel.id,
+                    Industry_FullName = indModel.Industry_FullName,
+                    Industry_ShortName = indModel.Industry_ShortName,
+                    Industry_Code = indModel.Industry_Code,
+                    Industry_TypeID = getnewtype.id,
+                    Address = indModel.Address,
+                    City = indModel.City,
+                    State = indModel.State,
+                    Email_ID = indModel.Email_ID,
+                    ContactNumber = indModel.ContactNumber
+                };
+                wfe.Industry_Details.Add(industrymodel);
+                int success=wfe.SaveChanges();
+                return success;
+            }                               
         }
         
         public int deleteIndustryById(int id)
@@ -144,19 +172,44 @@ namespace Repository
         {
             var industry = wfe.Industry_Details.FirstOrDefault(ind => ind.id == updatedIndustry.id);
             var typeofindustry = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == updatedIndustry.Industry_Type);
-            if(industry!=null)
+            if (industry != null)
             {
-                industry.Industry_Code = updatedIndustry.Industry_Code;
-                industry.Industry_FullName = updatedIndustry.Industry_FullName;
-                industry.Industry_ShortName = updatedIndustry.Industry_ShortName;
-                industry.Industry_TypeID = typeofindustry.id;
-                industry.Address = updatedIndustry.Address;
-                industry.City = updatedIndustry.City;
-                industry.State = updatedIndustry.State;
-                industry.Email_ID = updatedIndustry.Email_ID;
-                industry.ContactNumber = updatedIndustry.ContactNumber;
-                int success= wfe.SaveChanges();
-                return success;
+                if (typeofindustry != null)
+                {
+                    industry.Industry_Code = updatedIndustry.Industry_Code;
+                    industry.Industry_FullName = updatedIndustry.Industry_FullName;
+                    industry.Industry_ShortName = updatedIndustry.Industry_ShortName;
+                    industry.Industry_TypeID = typeofindustry.id;
+                    industry.Address = updatedIndustry.Address;
+                    industry.City = updatedIndustry.City;
+                    industry.State = updatedIndustry.State;
+                    industry.Email_ID = updatedIndustry.Email_ID;
+                    industry.ContactNumber = updatedIndustry.ContactNumber;
+                    int success = wfe.SaveChanges();
+                    return success;
+                }
+                else
+                {
+                    Industry_Types newtype = new Industry_Types
+                    {
+                        IndustryType = updatedIndustry.Industry_Type
+                    };
+                    wfe.Industry_Types.Add(newtype);
+                    wfe.SaveChanges();
+
+                    var getnewindustrytype = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == updatedIndustry.Industry_Type);
+                    industry.Industry_Code = updatedIndustry.Industry_Code;
+                    industry.Industry_FullName = updatedIndustry.Industry_FullName;
+                    industry.Industry_ShortName = updatedIndustry.Industry_ShortName;
+                    industry.Industry_TypeID = getnewindustrytype.id;
+                    industry.Address = updatedIndustry.Address;
+                    industry.City = updatedIndustry.City;
+                    industry.State = updatedIndustry.State;
+                    industry.Email_ID = updatedIndustry.Email_ID;
+                    industry.ContactNumber = updatedIndustry.ContactNumber;
+                    int success = wfe.SaveChanges();
+                    return success;
+                }
             }
             else
             {
