@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Repository;
 using Model;
+using Model.Auth;
 
 namespace RepoTesting
 {
@@ -108,6 +109,21 @@ namespace RepoTesting
             //string succedpodd = pc.EditPoDetails(edpodd);
 
             //string sucdel = pc.DeletePoById(3);
+
+
+
+            Repository.UsersAuthentication ua = new UsersAuthentication();
+            Model.User user = new User
+            {
+                username = "bhanu",
+                password = "1913111188"
+            };
+            bool isautho = ua.IsUserAuthorized(user);
+            if(isautho)
+            {
+                JwtAuthenticationManager jwt = new JwtAuthenticationManager("PF36qeEbfPPryjLAyDL04rwr6hZpNGVp");
+                string token = jwt.GenerateToken(user.username);
+            }
         }
     }
 }

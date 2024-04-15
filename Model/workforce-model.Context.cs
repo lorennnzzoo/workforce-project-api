@@ -31,5 +31,6 @@ namespace Model
         public DbSet<Purchase_Categories> Purchase_Categories { get; set; }
         public DbSet<district> districts { get; set; }
         public DbSet<state> states { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

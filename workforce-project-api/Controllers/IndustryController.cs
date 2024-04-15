@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace workforce_project_api.Controllers
 {
+    
     [RoutePrefix("Api/Industry")]
     public class IndustryController : ApiController
     {

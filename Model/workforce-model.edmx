@@ -70,6 +70,14 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="state" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK__districts__state__534D60F1">
           <End Role="states" Type="Self.states" Multiplicity="0..1" />
           <End Role="districts" Type="Self.districts" Multiplicity="*" />
@@ -125,6 +133,7 @@
           <EntitySet Name="PO_Details" EntityType="Self.PO_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase_Categories" EntityType="Self.Purchase_Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="states" EntityType="Self.states" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__districts__state__534D60F1" Association="Self.FK__districts__state__534D60F1">
             <End Role="states" EntitySet="states" />
             <End Role="districts" EntitySet="districts" />
@@ -261,6 +270,7 @@
             <End Role="state" EntitySet="states" />
             <End Role="district" EntitySet="districts" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="workforce_projectModel.User" />
         </EntityContainer>
         <EntityType Name="district">
           <Key>
@@ -291,6 +301,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -364,6 +382,15 @@
             <EntityTypeMapping TypeName="workforce_projectModel.state">
               <MappingFragment StoreEntitySet="states">
                 <ScalarProperty Name="state1" ColumnName="state" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="workforce_projectModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
