@@ -44,6 +44,56 @@ namespace workforce_project_api.Controllers
                          
         }
 
+
+        [HttpGet]
+        [Route("GetAllStates")]
+        public IHttpActionResult GetAllStates()
+        {
+            List<state> state = new List<Model.state>();
+            try
+            {
+                States_Districts sd = new States_Districts();
+                state = sd.getAllStates();
+                if(state!=null)
+                {
+                    return Ok(state);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetDistricts")]
+        public IHttpActionResult GetDistricts(int stateid)
+        {
+            List<district> districts = new List<district>();
+            try
+            {
+                States_Districts sd = new States_Districts();
+                districts = sd.GetDistrictByStateid(stateid);
+                if(districts!=null)
+                {
+                    return Ok(districts);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpGet]
         [Route("GetAll")]
         public IHttpActionResult GetAll()
