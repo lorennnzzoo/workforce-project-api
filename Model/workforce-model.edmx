@@ -4,7 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="workforce_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="workforce_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="districts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stateid" Type="int" />
+          <Property Name="district" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Industry_Details">
           <Key>
             <PropertyRef Name="id" />
@@ -55,6 +63,25 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="purchase_categorytype" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="states">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__districts__state__534D60F1">
+          <End Role="states" Type="Self.states" Multiplicity="0..1" />
+          <End Role="districts" Type="Self.districts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="states">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="districts">
+              <PropertyRef Name="stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Industry___Indus__173876EA">
           <End Role="Industry_Types" Type="Self.Industry_Types" Multiplicity="0..1" />
           <End Role="Industry_Details" Type="Self.Industry_Details" Multiplicity="*" />
@@ -92,10 +119,16 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="workforce_projectModelStoreContainer">
+          <EntitySet Name="districts" EntityType="Self.districts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Industry_Details" EntityType="Self.Industry_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Industry_Types" EntityType="Self.Industry_Types" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PO_Details" EntityType="Self.PO_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase_Categories" EntityType="Self.Purchase_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="states" EntityType="Self.states" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__districts__state__534D60F1" Association="Self.FK__districts__state__534D60F1">
+            <End Role="states" EntitySet="states" />
+            <End Role="districts" EntitySet="districts" />
+          </AssociationSet>
           <AssociationSet Name="FK__Industry___Indus__173876EA" Association="Self.FK__Industry___Indus__173876EA">
             <End Role="Industry_Types" EntitySet="Industry_Types" />
             <End Role="Industry_Details" EntitySet="Industry_Details" />
@@ -109,8 +142,7 @@
             <End Role="PO_Details" EntitySet="PO_Details" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="workforce_projectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -223,7 +255,42 @@
             <End Role="Purchase_Categories" EntitySet="Purchase_Categories" />
             <End Role="PO_Details" EntitySet="PO_Details" />
           </AssociationSet>
+          <EntitySet Name="districts" EntityType="workforce_projectModel.district" />
+          <EntitySet Name="states" EntityType="workforce_projectModel.state" />
+          <AssociationSet Name="FK__districts__state__534D60F1" Association="workforce_projectModel.FK__districts__state__534D60F1">
+            <End Role="state" EntitySet="states" />
+            <End Role="district" EntitySet="districts" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="district">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stateid" Type="Int32" />
+          <Property Name="district1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="state" Relationship="workforce_projectModel.FK__districts__state__534D60F1" FromRole="district" ToRole="state" />
+        </EntityType>
+        <EntityType Name="state">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="state1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="districts" Relationship="workforce_projectModel.FK__districts__state__534D60F1" FromRole="state" ToRole="district" />
+        </EntityType>
+        <Association Name="FK__districts__state__534D60F1">
+          <End Type="workforce_projectModel.state" Role="state" Multiplicity="0..1" />
+          <End Type="workforce_projectModel.district" Role="district" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="state">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="district">
+              <PropertyRef Name="stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -281,6 +348,23 @@
               <MappingFragment StoreEntitySet="Purchase_Categories">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="purchase_categorytype" ColumnName="purchase_categorytype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="districts">
+            <EntityTypeMapping TypeName="workforce_projectModel.district">
+              <MappingFragment StoreEntitySet="districts">
+                <ScalarProperty Name="district1" ColumnName="district" />
+                <ScalarProperty Name="stateid" ColumnName="stateid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="states">
+            <EntityTypeMapping TypeName="workforce_projectModel.state">
+              <MappingFragment StoreEntitySet="states">
+                <ScalarProperty Name="state1" ColumnName="state" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

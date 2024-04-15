@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="district.cs">
+      <DependentUpon>workforce-model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Industry_Details.cs">
       <DependentUpon>workforce-model.tt</DependentUpon>
     </Compile>
@@ -68,6 +71,9 @@
     <Compile Include="ReturnClasses\Industry_Types.cs" />
     <Compile Include="ReturnClasses\Po.cs" />
     <Compile Include="ReturnClasses\PurchaseCategories_Types.cs" />
+    <Compile Include="state.cs">
+      <DependentUpon>workforce-model.tt</DependentUpon>
+    </Compile>
     <Compile Include="workforce-model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -114,7 +114,7 @@ namespace workforce_project_api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpGet]
         [Route("DeleteById")]
         public IHttpActionResult Delete(int id)
         {

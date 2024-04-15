@@ -12,6 +12,9 @@
         <AssociationConnector Association="workforce_projectModel.FK__Industry___Indus__173876EA" ManuallyRouted="false" />
         <AssociationConnector Association="workforce_projectModel.FK__po_detail__INDUS__1CF15040" ManuallyRouted="false" />
         <AssociationConnector Association="workforce_projectModel.FK__po_detail__PURCH__1DE57479" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="workforce_projectModel.district" Width="1.5" PointX="7.625" PointY="6.875" />
+        <EntityTypeShape EntityType="workforce_projectModel.state" Width="1.5" PointX="5.375" PointY="7" />
+        <AssociationConnector Association="workforce_projectModel.FK__districts__state__534D60F1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

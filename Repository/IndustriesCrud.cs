@@ -35,53 +35,62 @@ namespace Repository
         }
         public int createIndustry(Model.ReturnClasses.Industry indModel)
         {
-            var type = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == indModel.Industry_Type);
-            if(type!=null)
+            var isindustrynameexist = wfe.Industry_Details.FirstOrDefault(e => e.Industry_FullName.ToUpper().Replace(" ", "") == indModel.Industry_FullName.ToUpper().Replace(" ", ""));
+            if(isindustrynameexist!=null)
             {
-                Industry_Details industrymodel = new Industry_Details
+                var type = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == indModel.Industry_Type);
+                if (type != null)
                 {
-                    id = indModel.id,
-                    Industry_FullName = indModel.Industry_FullName,
-                    Industry_ShortName = indModel.Industry_ShortName,
-                    Industry_Code = indModel.Industry_Code,
-                    Industry_TypeID = type.id,
-                    Address = indModel.Address,
-                    City = indModel.City,
-                    State = indModel.State,
-                    Email_ID = indModel.Email_ID,
-                    ContactNumber = indModel.ContactNumber
-                };
+                    Industry_Details industrymodel = new Industry_Details
+                    {
+                        id = indModel.id,
+                        Industry_FullName = indModel.Industry_FullName,
+                        Industry_ShortName = indModel.Industry_ShortName,
+                        Industry_Code = indModel.Industry_Code,
+                        Industry_TypeID = type.id,
+                        Address = indModel.Address,
+                        City = indModel.City,
+                        State = indModel.State,
+                        Email_ID = indModel.Email_ID,
+                        ContactNumber = indModel.ContactNumber
+                    };
 
-                wfe.Industry_Details.Add(industrymodel);
-                int success = wfe.SaveChanges();
-                return success;
+                    wfe.Industry_Details.Add(industrymodel);
+                    int success = wfe.SaveChanges();
+                    return success;
+                }
+                else
+                {
+                    Industry_Types newtype = new Industry_Types
+                    {
+                        IndustryType = indModel.Industry_Type
+                    };
+                    wfe.Industry_Types.Add(newtype);
+                    wfe.SaveChanges();
+                    var getnewtype = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == indModel.Industry_Type);
+                    Industry_Details industrymodel = new Industry_Details
+                    {
+                        id = indModel.id,
+                        Industry_FullName = indModel.Industry_FullName,
+                        Industry_ShortName = indModel.Industry_ShortName,
+                        Industry_Code = indModel.Industry_Code,
+                        Industry_TypeID = getnewtype.id,
+                        Address = indModel.Address,
+                        City = indModel.City,
+                        State = indModel.State,
+                        Email_ID = indModel.Email_ID,
+                        ContactNumber = indModel.ContactNumber
+                    };
+                    wfe.Industry_Details.Add(industrymodel);
+                    int success = wfe.SaveChanges();
+                    return success;
+                }
             }
             else
             {
-                Industry_Types newtype = new Industry_Types
-                {
-                    IndustryType=indModel.Industry_Type
-                };
-                wfe.Industry_Types.Add(newtype);
-                wfe.SaveChanges();
-                var getnewtype = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == indModel.Industry_Type);
-                Industry_Details industrymodel = new Industry_Details
-                {
-                    id = indModel.id,
-                    Industry_FullName = indModel.Industry_FullName,
-                    Industry_ShortName = indModel.Industry_ShortName,
-                    Industry_Code = indModel.Industry_Code,
-                    Industry_TypeID = getnewtype.id,
-                    Address = indModel.Address,
-                    City = indModel.City,
-                    State = indModel.State,
-                    Email_ID = indModel.Email_ID,
-                    ContactNumber = indModel.ContactNumber
-                };
-                wfe.Industry_Details.Add(industrymodel);
-                int success=wfe.SaveChanges();
-                return success;
-            }                               
+                return 303;
+            }
+                                    
         }
         
         public int deleteIndustryById(int id)

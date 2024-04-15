@@ -23,14 +23,19 @@ namespace workforce_project_api.Controllers
             try
             {
                 response = ic.createIndustry(newIndustry);
-                if (response > 0)
+                if (response > 0 && response!=303)
                 {
                     return Ok("Industry Successfully Created");
+                }
+                else if (response == 303)
+                {
+                    return BadRequest("Industry Name Already Exists");
                 }
                 else
                 {
                     return BadRequest("Unable To Create Industry");
                 }
+                
             }   
             catch(Exception ex)
             {
@@ -113,7 +118,7 @@ namespace workforce_project_api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpGet]
         [Route("DeleteById")]
         public IHttpActionResult DeleteById(int id)
         {

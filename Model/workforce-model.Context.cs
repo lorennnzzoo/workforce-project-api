@@ -29,5 +29,7 @@ namespace Model
         public DbSet<Industry_Types> Industry_Types { get; set; }
         public DbSet<PO_Details> PO_Details { get; set; }
         public DbSet<Purchase_Categories> Purchase_Categories { get; set; }
+        public DbSet<district> districts { get; set; }
+        public DbSet<state> states { get; set; }
     }
 }
