@@ -36,7 +36,7 @@ namespace Repository
         public int createIndustry(Model.ReturnClasses.Industry indModel)
         {
             var isindustrynameexist = wfe.Industry_Details.FirstOrDefault(e => e.Industry_FullName.ToUpper().Replace(" ", "") == indModel.Industry_FullName.ToUpper().Replace(" ", ""));
-            if(isindustrynameexist!=null)
+            if(isindustrynameexist==null)
             {
                 var type = wfe.Industry_Types.FirstOrDefault(e => e.IndustryType == indModel.Industry_Type);
                 if (type != null)
