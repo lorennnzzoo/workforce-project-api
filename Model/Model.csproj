@@ -67,10 +67,12 @@
     <Compile Include="Purchase_Categories.cs">
       <DependentUpon>workforce-model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ReturnClasses\Districts.cs" />
     <Compile Include="ReturnClasses\Industry.cs" />
     <Compile Include="ReturnClasses\Industry_Types.cs" />
     <Compile Include="ReturnClasses\Po.cs" />
     <Compile Include="ReturnClasses\PurchaseCategories_Types.cs" />
+    <Compile Include="ReturnClasses\States.cs" />
     <Compile Include="state.cs">
       <DependentUpon>workforce-model.tt</DependentUpon>
     </Compile>

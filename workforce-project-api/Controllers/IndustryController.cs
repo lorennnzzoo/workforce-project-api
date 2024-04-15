@@ -49,7 +49,7 @@ namespace workforce_project_api.Controllers
         [Route("GetAllStates")]
         public IHttpActionResult GetAllStates()
         {
-            List<state> state = new List<Model.state>();
+            List<Model.ReturnClasses.States> state = new List<Model.ReturnClasses.States>();
             try
             {
                 States_Districts sd = new States_Districts();
@@ -74,7 +74,7 @@ namespace workforce_project_api.Controllers
         [Route("GetDistricts")]
         public IHttpActionResult GetDistricts(int stateid)
         {
-            List<district> districts = new List<district>();
+            List<Model.ReturnClasses.Districts> districts = new List<Model.ReturnClasses.Districts>();
             try
             {
                 States_Districts sd = new States_Districts();
