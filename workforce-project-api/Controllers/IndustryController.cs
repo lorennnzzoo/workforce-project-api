@@ -15,7 +15,7 @@ namespace workforce_project_api.Controllers
     {
         private IndustriesCrud ic = new IndustriesCrud();
         
-        [HttpPost]
+        [HttpGet]
         [Route("Create")]
         public IHttpActionResult Create(Model.ReturnClasses.Industry newIndustry)
         {
@@ -45,7 +45,7 @@ namespace workforce_project_api.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [Route("GetAllStates")]
         public IHttpActionResult GetAllStates()
         {
