@@ -70,7 +70,7 @@ namespace workforce_project_api.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [Route("GetDistricts")]
         public IHttpActionResult GetDistricts(int stateid)
         {
