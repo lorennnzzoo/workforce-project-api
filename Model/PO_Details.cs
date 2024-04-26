@@ -14,6 +14,11 @@ namespace Model
     
     public partial class PO_Details
     {
+        public PO_Details()
+        {
+            this.Instrument_Equipment_Details = new HashSet<Instrument_Equipment_Details>();
+        }
+    
         public int id { get; set; }
         public Nullable<int> INDUSTRY_ID { get; set; }
         public Nullable<System.DateTime> PO_DATE { get; set; }
@@ -33,5 +38,6 @@ namespace Model
     
         public virtual Industry_Details Industry_Details { get; set; }
         public virtual Purchase_Categories Purchase_Categories { get; set; }
+        public virtual ICollection<Instrument_Equipment_Details> Instrument_Equipment_Details { get; set; }
     }
 }

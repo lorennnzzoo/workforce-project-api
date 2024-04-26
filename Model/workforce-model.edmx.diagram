@@ -15,6 +15,11 @@
         <EntityTypeShape EntityType="workforce_projectModel.district" Width="1.5" PointX="7.625" PointY="6.875" />
         <EntityTypeShape EntityType="workforce_projectModel.state" Width="1.5" PointX="5.375" PointY="7" />
         <AssociationConnector Association="workforce_projectModel.FK__districts__state__534D60F1" />
+        <EntityTypeShape EntityType="workforce_projectModel.Equipment_Types" Width="1.5" PointX="5.25" PointY="9.375" />
+        <EntityTypeShape EntityType="workforce_projectModel.Instrument_Equipment_Details" Width="1.5" PointX="7.5" PointY="2.625" />
+        <AssociationConnector Association="workforce_projectModel.FK_Equipment_Types_Equipment_Types" />
+        <AssociationConnector Association="workforce_projectModel.FK_Instrument_Equipment_Details_Equipment_Types" />
+        <AssociationConnector Association="workforce_projectModel.FK_Instrument_Equipment_Details_PO_Details" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

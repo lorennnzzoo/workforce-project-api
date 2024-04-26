@@ -13,6 +13,14 @@
           <Property Name="stateid" Type="int" />
           <Property Name="district" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="Equipment_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Purchase_Category_Id" Type="int" Nullable="false" />
+          <Property Name="Equipment_Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Industry_Details">
           <Key>
             <PropertyRef Name="id" />
@@ -34,6 +42,20 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IndustryType" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Instrument_Equipment_Details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PO_Id" Type="int" Nullable="false" />
+          <Property Name="Equipment_Type_Id" Type="int" Nullable="false" />
+          <Property Name="Analyzer_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Make" Type="nvarchar" MaxLength="50" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" />
+          <Property Name="Serial_Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Purchase_Year" Type="date" />
+          <Property Name="Calibration_Certificate_Number" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PO_Details">
           <Key>
@@ -118,10 +140,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Equipment_Types_Equipment_Types">
+          <End Role="Purchase_Categories" Type="Self.Purchase_Categories" Multiplicity="1" />
+          <End Role="Equipment_Types" Type="Self.Equipment_Types" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase_Categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Equipment_Types">
+              <PropertyRef Name="Purchase_Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instrument_Equipment_Details_Equipment_Types">
+          <End Role="Equipment_Types" Type="Self.Equipment_Types" Multiplicity="1" />
+          <End Role="Instrument_Equipment_Details" Type="Self.Instrument_Equipment_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Instrument_Equipment_Details">
+              <PropertyRef Name="Equipment_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instrument_Equipment_Details_PO_Details">
+          <End Role="PO_Details" Type="Self.PO_Details" Multiplicity="1" />
+          <End Role="Instrument_Equipment_Details" Type="Self.Instrument_Equipment_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO_Details">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Instrument_Equipment_Details">
+              <PropertyRef Name="PO_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="workforce_projectModelStoreContainer">
           <EntitySet Name="districts" EntityType="Self.districts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipment_Types" EntityType="Self.Equipment_Types" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Industry_Details" EntityType="Self.Industry_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Industry_Types" EntityType="Self.Industry_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instrument_Equipment_Details" EntityType="Self.Instrument_Equipment_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PO_Details" EntityType="Self.PO_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Purchase_Categories" EntityType="Self.Purchase_Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="states" EntityType="Self.states" Schema="dbo" store:Type="Tables" />
@@ -140,6 +200,18 @@
           <AssociationSet Name="FK__po_detail__PURCH__1DE57479" Association="Self.FK__po_detail__PURCH__1DE57479">
             <End Role="Purchase_Categories" EntitySet="Purchase_Categories" />
             <End Role="PO_Details" EntitySet="PO_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Types_Equipment_Types" Association="Self.FK_Equipment_Types_Equipment_Types">
+            <End Role="Purchase_Categories" EntitySet="Purchase_Categories" />
+            <End Role="Equipment_Types" EntitySet="Equipment_Types" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instrument_Equipment_Details_Equipment_Types" Association="Self.FK_Instrument_Equipment_Details_Equipment_Types">
+            <End Role="Equipment_Types" EntitySet="Equipment_Types" />
+            <End Role="Instrument_Equipment_Details" EntitySet="Instrument_Equipment_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instrument_Equipment_Details_PO_Details" Association="Self.FK_Instrument_Equipment_Details_PO_Details">
+            <End Role="PO_Details" EntitySet="PO_Details" />
+            <End Role="Instrument_Equipment_Details" EntitySet="Instrument_Equipment_Details" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -193,6 +265,7 @@
           <Property Name="PAYMENT_DATE" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Industry_Details" Relationship="Self.FK__po_detail__INDUS__1CF15040" FromRole="PO_Details" ToRole="Industry_Details" />
           <NavigationProperty Name="Purchase_Categories" Relationship="Self.FK__po_detail__PURCH__1DE57479" FromRole="PO_Details" ToRole="Purchase_Categories" />
+          <NavigationProperty Name="Instrument_Equipment_Details" Relationship="workforce_projectModel.FK_Instrument_Equipment_Details_PO_Details" FromRole="PO_Details" ToRole="Instrument_Equipment_Details" />
         </EntityType>
         <EntityType Name="Purchase_Categories">
           <Key>
@@ -201,6 +274,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="purchase_categorytype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PO_Details" Relationship="Self.FK__po_detail__PURCH__1DE57479" FromRole="Purchase_Categories" ToRole="PO_Details" />
+          <NavigationProperty Name="Equipment_Types" Relationship="workforce_projectModel.FK_Equipment_Types_Equipment_Types" FromRole="Purchase_Categories" ToRole="Equipment_Types" />
         </EntityType>
         <Association Name="FK__Industry___Indus__173876EA">
           <End Role="Industry_Types" Type="Self.Industry_Types" Multiplicity="0..1" />
@@ -261,6 +335,20 @@
             <End Role="state" EntitySet="states" />
             <End Role="district" EntitySet="districts" />
           </AssociationSet>
+          <EntitySet Name="Equipment_Types" EntityType="workforce_projectModel.Equipment_Types" />
+          <EntitySet Name="Instrument_Equipment_Details" EntityType="workforce_projectModel.Instrument_Equipment_Details" />
+          <AssociationSet Name="FK_Equipment_Types_Equipment_Types" Association="workforce_projectModel.FK_Equipment_Types_Equipment_Types">
+            <End Role="Purchase_Categories" EntitySet="Purchase_Categories" />
+            <End Role="Equipment_Types" EntitySet="Equipment_Types" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instrument_Equipment_Details_Equipment_Types" Association="workforce_projectModel.FK_Instrument_Equipment_Details_Equipment_Types">
+            <End Role="Equipment_Types" EntitySet="Equipment_Types" />
+            <End Role="Instrument_Equipment_Details" EntitySet="Instrument_Equipment_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instrument_Equipment_Details_PO_Details" Association="workforce_projectModel.FK_Instrument_Equipment_Details_PO_Details">
+            <End Role="PO_Details" EntitySet="PO_Details" />
+            <End Role="Instrument_Equipment_Details" EntitySet="Instrument_Equipment_Details" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="district">
           <Key>
@@ -288,6 +376,68 @@
             </Principal>
             <Dependent Role="district">
               <PropertyRef Name="stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Equipment_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Purchase_Category_Id" Type="Int32" Nullable="false" />
+          <Property Name="Equipment_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Purchase_Categories" Relationship="workforce_projectModel.FK_Equipment_Types_Equipment_Types" FromRole="Equipment_Types" ToRole="Purchase_Categories" />
+          <NavigationProperty Name="Instrument_Equipment_Details" Relationship="workforce_projectModel.FK_Instrument_Equipment_Details_Equipment_Types" FromRole="Equipment_Types" ToRole="Instrument_Equipment_Details" />
+        </EntityType>
+        <EntityType Name="Instrument_Equipment_Details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PO_Id" Type="Int32" Nullable="false" />
+          <Property Name="Equipment_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Analyzer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Serial_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Purchase_Year" Type="DateTime" Precision="0" />
+          <Property Name="Calibration_Certificate_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Equipment_Types" Relationship="workforce_projectModel.FK_Instrument_Equipment_Details_Equipment_Types" FromRole="Instrument_Equipment_Details" ToRole="Equipment_Types" />
+          <NavigationProperty Name="PO_Details" Relationship="workforce_projectModel.FK_Instrument_Equipment_Details_PO_Details" FromRole="Instrument_Equipment_Details" ToRole="PO_Details" />
+        </EntityType>
+        <Association Name="FK_Equipment_Types_Equipment_Types">
+          <End Type="workforce_projectModel.Purchase_Categories" Role="Purchase_Categories" Multiplicity="1" />
+          <End Type="workforce_projectModel.Equipment_Types" Role="Equipment_Types" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase_Categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Equipment_Types">
+              <PropertyRef Name="Purchase_Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instrument_Equipment_Details_Equipment_Types">
+          <End Type="workforce_projectModel.Equipment_Types" Role="Equipment_Types" Multiplicity="1" />
+          <End Type="workforce_projectModel.Instrument_Equipment_Details" Role="Instrument_Equipment_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Instrument_Equipment_Details">
+              <PropertyRef Name="Equipment_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instrument_Equipment_Details_PO_Details">
+          <End Type="workforce_projectModel.PO_Details" Role="PO_Details" Multiplicity="1" />
+          <End Type="workforce_projectModel.Instrument_Equipment_Details" Role="Instrument_Equipment_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO_Details">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Instrument_Equipment_Details">
+              <PropertyRef Name="PO_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -364,6 +514,30 @@
             <EntityTypeMapping TypeName="workforce_projectModel.state">
               <MappingFragment StoreEntitySet="states">
                 <ScalarProperty Name="state1" ColumnName="state" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipment_Types">
+            <EntityTypeMapping TypeName="workforce_projectModel.Equipment_Types">
+              <MappingFragment StoreEntitySet="Equipment_Types">
+                <ScalarProperty Name="Equipment_Type" ColumnName="Equipment_Type" />
+                <ScalarProperty Name="Purchase_Category_Id" ColumnName="Purchase_Category_Id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instrument_Equipment_Details">
+            <EntityTypeMapping TypeName="workforce_projectModel.Instrument_Equipment_Details">
+              <MappingFragment StoreEntitySet="Instrument_Equipment_Details">
+                <ScalarProperty Name="Calibration_Certificate_Number" ColumnName="Calibration_Certificate_Number" />
+                <ScalarProperty Name="Purchase_Year" ColumnName="Purchase_Year" />
+                <ScalarProperty Name="Serial_Number" ColumnName="Serial_Number" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="Analyzer_Name" ColumnName="Analyzer_Name" />
+                <ScalarProperty Name="Equipment_Type_Id" ColumnName="Equipment_Type_Id" />
+                <ScalarProperty Name="PO_Id" ColumnName="PO_Id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

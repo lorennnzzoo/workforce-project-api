@@ -13,6 +13,7 @@ namespace workforce_project_api.Controllers
     public class POController : ApiController
     {
         private PoCrud pc = new PoCrud();
+        private EquipmentCrud ec = new EquipmentCrud();
 
         [HttpPost]
         [Route("Create")]
@@ -164,6 +165,28 @@ namespace workforce_project_api.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetEquipmentTypes")]
+        public IHttpActionResult GetEquipmentTypes(int poid)
+        {
+            List<Model.ReturnClasses.Equipment_Types> eqtypes = new List<Model.ReturnClasses.Equipment_Types>();
+            try
+            {
+                eqtypes = ec.GetEquipmentTypes(poid);
+                if(eqtypes!=null)
+                {
+                    return Ok(eqtypes);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch( Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }        
         //[HttpPost]
         //[Route("AddPurchaseCategory")]
         //public IHttpActionResult AddPurchaseCategory(Purchase_Categories puc)

@@ -31,5 +31,7 @@ namespace Model
         public DbSet<Purchase_Categories> Purchase_Categories { get; set; }
         public DbSet<district> districts { get; set; }
         public DbSet<state> states { get; set; }
+        public DbSet<Equipment_Types> Equipment_Types { get; set; }
+        public DbSet<Instrument_Equipment_Details> Instrument_Equipment_Details { get; set; }
     }
 }

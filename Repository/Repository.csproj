@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EquipmentCrud.cs" />
     <Compile Include="IndustriesCrud.cs" />
     <Compile Include="PoCrud.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

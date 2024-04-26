@@ -108,6 +108,9 @@ namespace RepoTesting
             //string succedpodd = pc.EditPoDetails(edpodd);
 
             //string sucdel = pc.DeletePoById(3);
+
+            EquipmentCrud ec = new EquipmentCrud();
+            List<Model.ReturnClasses.Equipment_Types> et=ec.GetEquipmentTypes(7);
         }
     }
 }

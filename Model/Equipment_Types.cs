@@ -12,18 +12,18 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Purchase_Categories
+    public partial class Equipment_Types
     {
-        public Purchase_Categories()
+        public Equipment_Types()
         {
-            this.PO_Details = new HashSet<PO_Details>();
-            this.Equipment_Types = new HashSet<Equipment_Types>();
+            this.Instrument_Equipment_Details = new HashSet<Instrument_Equipment_Details>();
         }
     
         public int id { get; set; }
-        public string purchase_categorytype { get; set; }
+        public int Purchase_Category_Id { get; set; }
+        public string Equipment_Type { get; set; }
     
-        public virtual ICollection<PO_Details> PO_Details { get; set; }
-        public virtual ICollection<Equipment_Types> Equipment_Types { get; set; }
+        public virtual Purchase_Categories Purchase_Categories { get; set; }
+        public virtual ICollection<Instrument_Equipment_Details> Instrument_Equipment_Details { get; set; }
     }
 }
