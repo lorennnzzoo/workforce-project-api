@@ -60,23 +60,32 @@ namespace Repository
         public int AddEquipmentType(string Type, int poid)
         {
             int success = 0;
-            var podetails = wfe.PO_Details.Where(e => e.id == poid);
-            var purchasecategoryid = podetails.Select(e => e.PURCHASE_CATEGORYID).FirstOrDefault();
-            Equipment_Types eq = new Equipment_Types
+            var istypeexists = wfe.Equipment_Types.FirstOrDefault(e => e.Equipment_Type.ToUpper() == Type.ToUpper());
+            if(istypeexists!=null)
             {
-                Purchase_Category_Id =Convert.ToInt32( purchasecategoryid),
-                Equipment_Type= Type,
-            };
-            wfe.Equipment_Types.Add(eq);
-            success = wfe.SaveChanges();
-            if(success>0)
-            {
-                return 1;
+                var podetails = wfe.PO_Details.Where(e => e.id == poid);
+                var purchasecategoryid = podetails.Select(e => e.PURCHASE_CATEGORYID).FirstOrDefault();
+                Equipment_Types eq = new Equipment_Types
+                {
+                    Purchase_Category_Id = Convert.ToInt32(purchasecategoryid),
+                    Equipment_Type = Type.ToUpper(),
+                };
+                wfe.Equipment_Types.Add(eq);
+                success = wfe.SaveChanges();
+                if (success > 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             else
             {
-                return 0;
+                return 303;
             }
+            
         }
     }
 }

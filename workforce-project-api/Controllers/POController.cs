@@ -186,7 +186,34 @@ namespace workforce_project_api.Controllers
             {
                 return InternalServerError(ex);
             }
-        }        
+        }   
+        
+        
+        [HttpPost]     
+        [Route("AddEquipmentType")]
+        public IHttpActionResult AddEquipmentType(string Type,int poid)
+        {
+            try
+            {
+                int success = ec.AddEquipmentType(Type, poid);
+                if(success>0 && success !=303)
+                {
+                    return Ok("Equipment Type Added Successfully");
+                }
+                else if(success==303)
+                {
+                    return BadRequest("Equipment Type Already Exists");
+                }
+                else
+                {
+                    return BadRequest("Unable To Add Equipment Type");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
         //[HttpPost]
         //[Route("AddPurchaseCategory")]
         //public IHttpActionResult AddPurchaseCategory(Purchase_Categories puc)
