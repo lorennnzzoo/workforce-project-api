@@ -85,7 +85,7 @@ namespace Repository
         public int CreateInstrumentationEquipmentDetails(Instrument_Equipment_Details IED)
         {
             int success = 0;
-            var currentEquipmentDetails = wfe.Instrument_Equipment_Details.Where(e => e.PO_Id == IED.PO_Id);
+            List<Instrument_Equipment_Details> currentEquipmentDetails = wfe.Instrument_Equipment_Details.Where(e => e.PO_Id == IED.PO_Id).ToList();
             if (currentEquipmentDetails != null)
             {
                 var isSerialNumberDuplicate = currentEquipmentDetails.Where(e => e.Serial_Number == IED.Serial_Number);
