@@ -50,18 +50,69 @@ namespace Repository
             }
         }
 
+        public List<Model.ReturnClasses.Instrumentation_Equipment_Details> GetInstrumentationEquipmentDetails(int Poid)
+        {
+            List<Model.ReturnClasses.Instrumentation_Equipment_Details> AllDetails = new List<Model.ReturnClasses.Instrumentation_Equipment_Details>();
+            List<Instrument_Equipment_Details> IDE = wfe.Instrument_Equipment_Details.Where(e => e.PO_Id == Poid).ToList();
+            if(IDE!=null)
+            {
+                foreach(Instrument_Equipment_Details ID in IDE)
+                {
+                    string equipmentype = wfe.Equipment_Types.Where(e => e.id == ID.Equipment_Type_Id).Select(e => e.Equipment_Type).FirstOrDefault();
+                    Model.ReturnClasses.Instrumentation_Equipment_Details returnide = new Model.ReturnClasses.Instrumentation_Equipment_Details
+                    {
+                        id=ID.id,
+                        PO_Id=ID.PO_Id,
+                        Equipment_Type= equipmentype,
+                        Analyzer_Name=ID.Analyzer_Name,
+                        Make=ID.Make,
+                        Model=ID.Model,
+                        Serial_Number=ID.Serial_Number,
+                        Purchase_Year=ID.Purchase_Year,
+                        Calibration_Certificate_Number=ID.Calibration_Certificate_Number
+                    };
+                    AllDetails.Add(returnide);
+                }
+                return AllDetails;
+            }
+            else
+            {
+                return null;
+            }
 
+        }
 
-        //public int CreateInstrumentationEquipmentDetails(Instrument_Equipment_Details IED)
-        //{
-
-        //}
+        public int CreateInstrumentationEquipmentDetails(Instrument_Equipment_Details IED)
+        {
+            int success = 0;
+            var currentEquipmentDetails = wfe.Instrument_Equipment_Details.Where(e => e.PO_Id == IED.PO_Id);
+            if (currentEquipmentDetails != null)
+            {
+                var isSerialNumberDuplicate = currentEquipmentDetails.Where(e => e.Serial_Number == IED.Serial_Number);
+                if(isSerialNumberDuplicate==null)
+                {
+                    wfe.Instrument_Equipment_Details.Add(IED);
+                    success = wfe.SaveChanges();
+                    return success;
+                }
+                else
+                {
+                    return 303;
+                }
+            }
+            else
+            {
+                wfe.Instrument_Equipment_Details.Add(IED);
+                success = wfe.SaveChanges();
+                return success;
+            }
+        }
 
         public int AddEquipmentType(string Type, int poid)
         {
             int success = 0;
             var istypeexists = wfe.Equipment_Types.FirstOrDefault(e => e.Equipment_Type.ToUpper() == Type.ToUpper());
-            if(istypeexists!=null)
+            if(istypeexists==null)
             {
                 var podetails = wfe.PO_Details.Where(e => e.id == poid);
                 var purchasecategoryid = podetails.Select(e => e.PURCHASE_CATEGORYID).FirstOrDefault();
@@ -72,14 +123,7 @@ namespace Repository
                 };
                 wfe.Equipment_Types.Add(eq);
                 success = wfe.SaveChanges();
-                if (success > 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                return success;
             }
             else
             {

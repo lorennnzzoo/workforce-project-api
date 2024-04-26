@@ -214,6 +214,56 @@ namespace workforce_project_api.Controllers
                 return InternalServerError(ex);
             }
         }
+
+
+        [HttpPost]
+        [Route("AddInstrumentationDetails")]
+        public IHttpActionResult AddInstrumentationDetails(Instrument_Equipment_Details IED)
+        {
+            try
+            {
+                int success = ec.CreateInstrumentationEquipmentDetails(IED);
+                if(success>0 && success!=303)
+                {
+                    return Ok("Instrumentation Equipment Details Created Successfully");
+                }
+                else if(success==303)
+                {
+                    return BadRequest("Same SerialNumber Already Exists In The Records Of This Po");
+                }
+                else
+                {
+                    return BadRequest("Unable To Create Instrument Equipment Details");
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("GetInstrumentationEquipmentDetails")]
+        public IHttpActionResult GetInstrumentationEquipmentDetails(int poid)
+        {
+            List<Model.ReturnClasses.Instrumentation_Equipment_Details> IDE = new List<Model.ReturnClasses.Instrumentation_Equipment_Details>();
+            try
+            {
+                IDE = ec.GetInstrumentationEquipmentDetails(poid);
+                if(IDE!=null)
+                {
+                    return Ok(IDE);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
         //[HttpPost]
         //[Route("AddPurchaseCategory")]
         //public IHttpActionResult AddPurchaseCategory(Purchase_Categories puc)
