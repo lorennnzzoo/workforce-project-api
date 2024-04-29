@@ -15,7 +15,8 @@ namespace Model.ReturnClasses
         public string Make { get; set; }
         public string Model { get; set; }
         public string Serial_Number { get; set; }
-        public Nullable<System.DateTime> Purchase_Year { get; set; }
+        //public Nullable<System.DateTime> Purchase_Year { get; set; }
+        public string Purchase_Year { get; set; }
         public string Calibration_Certificate_Number { get; set; }
     }
 }

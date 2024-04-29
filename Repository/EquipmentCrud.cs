@@ -54,22 +54,24 @@ namespace Repository
         {
             List<Model.ReturnClasses.Instrumentation_Equipment_Details> AllDetails = new List<Model.ReturnClasses.Instrumentation_Equipment_Details>();
             List<Instrument_Equipment_Details> IDE = wfe.Instrument_Equipment_Details.Where(e => e.PO_Id == Poid).ToList();
-            if(IDE!=null)
+            if (IDE != null)
             {
-                foreach(Instrument_Equipment_Details ID in IDE)
+                foreach (Instrument_Equipment_Details ID in IDE)
                 {
+                    DateTime date = Convert.ToDateTime(ID.Purchase_Year);
+                    string purchaseYear = date.Day + "-" + date.Month + "-" + date.Year;
                     string equipmentype = wfe.Equipment_Types.Where(e => e.id == ID.Equipment_Type_Id).Select(e => e.Equipment_Type).FirstOrDefault();
                     Model.ReturnClasses.Instrumentation_Equipment_Details returnide = new Model.ReturnClasses.Instrumentation_Equipment_Details
                     {
-                        id=ID.id,
-                        PO_Id=ID.PO_Id,
-                        Equipment_Type= equipmentype,
-                        Analyzer_Name=ID.Analyzer_Name,
-                        Make=ID.Make,
-                        Model=ID.Model,
-                        Serial_Number=ID.Serial_Number,
-                        Purchase_Year=ID.Purchase_Year,
-                        Calibration_Certificate_Number=ID.Calibration_Certificate_Number
+                        id = ID.id,
+                        PO_Id = ID.PO_Id,
+                        Equipment_Type = equipmentype,
+                        Analyzer_Name = ID.Analyzer_Name,
+                        Make = ID.Make,
+                        Model = ID.Model,
+                        Serial_Number = ID.Serial_Number,
+                        Purchase_Year = purchaseYear,
+                        Calibration_Certificate_Number = ID.Calibration_Certificate_Number
                     };
                     AllDetails.Add(returnide);
                 }
