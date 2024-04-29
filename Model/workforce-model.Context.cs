@@ -33,5 +33,6 @@ namespace Model
         public DbSet<state> states { get; set; }
         public DbSet<Equipment_Types> Equipment_Types { get; set; }
         public DbSet<Instrument_Equipment_Details> Instrument_Equipment_Details { get; set; }
+        public DbSet<Electrical_Equipment_Details> Electrical_Equipment_Details { get; set; }
     }
 }

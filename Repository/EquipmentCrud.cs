@@ -133,5 +133,51 @@ namespace Repository
             }
             
         }
+
+        public List<Model.ReturnClasses.Electrical_Equipment_Details> GetElectricalEquipmentDetails(int Poid)
+        {
+            List<Model.ReturnClasses.Electrical_Equipment_Details> AllDetails = new List<Model.ReturnClasses.Electrical_Equipment_Details>();
+            List<Electrical_Equipment_Details> IDE = wfe.Electrical_Equipment_Details.Where(e => e.PO_Id == Poid).ToList();
+            if (IDE != null)
+            {
+                foreach (Electrical_Equipment_Details ID in IDE)
+                {
+                    DateTime date = Convert.ToDateTime(ID.Purchase_Year);
+                    string purchaseYear = date.Day + "-" + date.Month + "-" + date.Year;
+                    string equipmentype = wfe.Equipment_Types.Where(e => e.id == ID.Equipment_Type_Id).Select(e => e.Equipment_Type).FirstOrDefault();
+                    Model.ReturnClasses.Electrical_Equipment_Details returnide = new Model.ReturnClasses.Electrical_Equipment_Details
+                    {
+                        Id = ID.Id,
+                        PO_Id = ID.PO_Id,
+                        Equipment_Type = equipmentype,
+                        Make = ID.Make,                        
+                        Model = ID.Model,                        
+                        Purchase_Year = purchaseYear,
+                        Quantity=ID.Quantity                        
+                    };
+                    AllDetails.Add(returnide);
+                }
+                return AllDetails;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public int CreateElectricalEquipmentDetails(Electrical_Equipment_Details electricalequipmentdetails)
+        {
+            int success = 0;
+
+            //List<Electrical_Equipment_Details> currentequipmenttetails = wfe.Electrical_Equipment_Details.Where(e => e.PO_Id == electricalequipmentdetails.PO_Id).ToList();
+            //if(currentequipmenttetails!=null)
+            //{
+
+            //}
+            wfe.Electrical_Equipment_Details.Add(electricalequipmentdetails);
+            success = wfe.SaveChanges();
+            return success;
+        }
     }
 }

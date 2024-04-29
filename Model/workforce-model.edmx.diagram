@@ -20,6 +20,9 @@
         <AssociationConnector Association="workforce_projectModel.FK_Equipment_Types_Equipment_Types" />
         <AssociationConnector Association="workforce_projectModel.FK_Instrument_Equipment_Details_Equipment_Types" />
         <AssociationConnector Association="workforce_projectModel.FK_Instrument_Equipment_Details_PO_Details" />
+        <EntityTypeShape EntityType="workforce_projectModel.Electrical_Equipment_Details" Width="1.5" PointX="10.5" PointY="4.875" />
+        <AssociationConnector Association="workforce_projectModel.FK_Electrical_Equipment_Details_Equipment_Types" />
+        <AssociationConnector Association="workforce_projectModel.FK_Electrical_Equipment_Details_PO_Details" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

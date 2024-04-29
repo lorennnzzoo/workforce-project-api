@@ -54,6 +54,7 @@
     <Compile Include="district.cs">
       <DependentUpon>workforce-model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Electrical_Equipment_Details.cs" />
     <Compile Include="Equipment_Types.cs">
       <DependentUpon>workforce-model.tt</DependentUpon>
     </Compile>
@@ -74,6 +75,7 @@
       <DependentUpon>workforce-model.tt</DependentUpon>
     </Compile>
     <Compile Include="ReturnClasses\Districts.cs" />
+    <Compile Include="ReturnClasses\Electrical_Equipment_Details.cs" />
     <Compile Include="ReturnClasses\Equipment_Types.cs" />
     <Compile Include="ReturnClasses\Industry.cs" />
     <Compile Include="ReturnClasses\Industry_Types.cs" />

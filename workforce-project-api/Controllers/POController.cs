@@ -264,6 +264,52 @@ namespace workforce_project_api.Controllers
                 return InternalServerError(ex);
             }
         }
+
+
+        [HttpPost]
+        [Route("AddElectricalDetails")]
+        public IHttpActionResult AddElectricalDetails(Electrical_Equipment_Details IED)
+        {
+            try
+            {
+                int success = ec.CreateElectricalEquipmentDetails(IED);
+                if (success > 0)
+                {
+                    return Ok("Instrumentation Equipment Details Created Successfully");
+                }               
+                else
+                {
+                    return BadRequest("Unable To Create Instrument Equipment Details");
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("GetElectricalEquipmentDetails")]
+        public IHttpActionResult GetElectricalEquipmentDetails(int poid)
+        {
+            List<Model.ReturnClasses.Electrical_Equipment_Details> IDE = new List<Model.ReturnClasses.Electrical_Equipment_Details>();
+            try
+            {
+                IDE = ec.GetElectricalEquipmentDetails(poid);
+                if (IDE != null)
+                {
+                    return Ok(IDE);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
         //[HttpPost]
         //[Route("AddPurchaseCategory")]
         //public IHttpActionResult AddPurchaseCategory(Purchase_Categories puc)

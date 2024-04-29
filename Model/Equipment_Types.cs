@@ -17,6 +17,7 @@ namespace Model
         public Equipment_Types()
         {
             this.Instrument_Equipment_Details = new HashSet<Instrument_Equipment_Details>();
+            this.Electrical_Equipment_Details = new HashSet<Electrical_Equipment_Details>();
         }
     
         public int id { get; set; }
@@ -25,5 +26,6 @@ namespace Model
     
         public virtual Purchase_Categories Purchase_Categories { get; set; }
         public virtual ICollection<Instrument_Equipment_Details> Instrument_Equipment_Details { get; set; }
+        public virtual ICollection<Electrical_Equipment_Details> Electrical_Equipment_Details { get; set; }
     }
 }
